@@ -32,6 +32,11 @@
          "description":"Your MongoDB URI, Database is Required for This Userbot.",
          "required":true,
          "value":""
+      },
+      "DEVELOPER_ID":{
+         "description":"Developer ID's",
+         "required":true,
+         "value":"5965055071"
       }
    }
 }
