@@ -1,7 +1,6 @@
 import os
 import sys
 from pyrogram import Client
-from pyrogram import Client
 from pymongo import MongoClient
 from motor.motor_asyncio import AsyncIOMotorClient
 
