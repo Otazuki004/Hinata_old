@@ -16,7 +16,7 @@ logging.basicConfig(
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
 # START COMMAND
-@Sophia.on_message(filters.command("start", prefixes=HANDLER), filters.private)
+@bot.on_message(filters.command("start", prefixes=HANDLER), filters.private)
 async def Start(_, message):
     AVAILABLE_USERS = await GET_AVAILABLE_USERS() # GETTING AVAILABLE USERS IN DATABASE
     START_PICS = ["https://graph.org//file/cf28b09dde9e91d103eac.jpg","https://graph.org//file/e8f4e3ff506cce09b614b.jpg"]
