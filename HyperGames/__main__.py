@@ -4,6 +4,7 @@ from pyrogram import Client, filters
 import os
 import logging
 import pyrogram
+import random
 
 # LOGGING
 logging.basicConfig(
@@ -18,9 +19,11 @@ PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 @Sophia.on_message(filters.command("start", prefixes=HANDLER), filters.private)
 async def Start(_, message):
     AVAILABLE_USERS = await GET_AVAILABLE_USERS() # GETTING AVAILABLE USERS IN DATABASE
+    START_PICS = ["https://graph.org//file/cf28b09dde9e91d103eac.jpg","https://graph.org//file/e8f4e3ff506cce09b614b.jpg"]
+    START_PICS = random.choice(START_PICS)
     USER_ID = message.from_user.id # GETTING MESSAGE FROM USER ID
     if USER_ID in AVAILABLE_USERS: # CHECKING USER IN DATABASE
-        await message.reply_photo(photo="", caption=f"""
+        await message.reply_photo(photo=START_PICS, caption=f"""
 Hey, **{message.from_user.first_name}**🥰
 
 HyperGames is a free bot with only purpose to entertaining users, you just need to add me to your group. Thats easy, No?
