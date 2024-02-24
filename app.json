@@ -18,22 +18,22 @@
   ],
   "env":{
     "API_ID":{
-      "description":"Get API_ID from my.telegram.org, used for telethon based modules.",
+      "description":"Get API_ID from my.telegram.org",
       "required":true,
       "value":""
     },
     "API_HASH":{
-      "description":"Get API_HASH from my.telegram.org, used for telethon based modules.",
+      "description":"Get API_HASH from my.telegram.org",
       "required":true,
       "value":""
     },
     "BOT_TOKEN":{
-      "description":"Your Bot Token.",
+      "description":"Get a new BOT_TOKEN from @Botfather!",
       "required":true,
       "value":""
     },
     "MONGO_DB_URI":{
-      "description":"Your MongoDB URI, Database is Required for This Userbot.",
+      "description":"Your MongoDB URI, Database is Required for This bot.",
       "required":true,
       "value":""
     },
