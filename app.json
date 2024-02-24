@@ -1,12 +1,13 @@
 {
   "name":"HyperGames™",
   "description":"a Bot allows you play games in telegram.",
-  "logo":"https://telegra.ph/file/af2a44b84e649a0a60679.jpg",
+  "logo":"https://graph.org//file/eb536defba4d57f3303ea.jpg",
   "keywords":[
     "telegram",
     "game",
     "HyperGames"
-  ]"repository":"https://github.com/Otazuki004/SophiaUB",
+  ],
+"repository":"https://github.com/Otazuki004/Hyper_Games",
   "addons":[
     {
       "options":{
