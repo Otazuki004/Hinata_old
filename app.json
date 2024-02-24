@@ -1,45 +1,45 @@
 {
-    "name":"HyperGames™",
-    "description":"a Bot allows you play games in telegram.",
-    "logo":"https://telegra.ph/file/af2a44b84e649a0a60679.jpg",
-    "keywords":[
-        "telegram",
-        "game",
-        "HyperGames"
-    ]"repository":"https://github.com/Otazuki004/SophiaUB",
-    "addons":[
-        {
-            "options":{
-                "version":"12"
-            },
-            "plan":"heroku-postgresql"
-        }
-    ],
-    "env":{
-        "API_ID":{
-            "description":"Get API_ID from my.telegram.org, used for telethon based modules.",
-            "required":true,
-            "value":""
-        },
-        "API_HASH":{
-            "description":"Get API_HASH from my.telegram.org, used for telethon based modules.",
-            "required":true,
-            "value":""
-        },
-        "BOT_TOKEN":{
-            "description":"Your Bot Token.",
-            "required":true,
-            "value":""
-        },
-        "MONGO_DB_URI":{
-            "description":"Your MongoDB URI, Database is Required for This Userbot.",
-            "required":true,
-            "value":""
-        },
-        "DEVELOPER_ID":{
-            "description":"Developer ID's",
-            "required":true,
-            "value":"5965055071"
-        }
+  "name":"HyperGames™",
+  "description":"a Bot allows you play games in telegram.",
+  "logo":"https://telegra.ph/file/af2a44b84e649a0a60679.jpg",
+  "keywords":[
+    "telegram",
+    "game",
+    "HyperGames"
+  ]"repository":"https://github.com/Otazuki004/SophiaUB",
+  "addons":[
+    {
+      "options":{
+        "version":"12"
+      },
+      "plan":"heroku-postgresql"
     }
+  ],
+  "env":{
+    "API_ID":{
+      "description":"Get API_ID from my.telegram.org, used for telethon based modules.",
+      "required":true,
+      "value":""
+    },
+    "API_HASH":{
+      "description":"Get API_HASH from my.telegram.org, used for telethon based modules.",
+      "required":true,
+      "value":""
+    },
+    "BOT_TOKEN":{
+      "description":"Your Bot Token.",
+      "required":true,
+      "value":""
+    },
+    "MONGO_DB_URI":{
+      "description":"Your MongoDB URI, Database is Required for This Userbot.",
+      "required":true,
+      "value":""
+    },
+    "DEVELOPER_ID":{
+      "description":"Developer ID's",
+      "required":true,
+      "value":"5965055071"
+    }
+  }
 }
