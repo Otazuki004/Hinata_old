@@ -16,16 +16,16 @@ logging.basicConfig(
 
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
-NO_ACCOUNT_TXT = f"""
-
-Hey, **{message.from_user.first_name}**🥰
-
-**Seems**, looks like you don't have a account in HyperGames
-Click button below to create a account!"""
 
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER), filters.private)
 async def Start(_, message):
+    NO_ACCOUNT_TXT = f"""
+Hey, **{message.from_user.first_name}**🥰
+
+**Seems**, looks like you don't have a account in HyperGames
+Click button below to create a account!
+"""
     AVAILABLE_USERS = await GET_AVAILABLE_USERS() # GETTING AVAILABLE USERS IN DATABASE
     START_PICS = ["https://graph.org//file/cf28b09dde9e91d103eac.jpg","https://graph.org//file/e8f4e3ff506cce09b614b.jpg"]
     START_PICS = random.choice(START_PICS)
