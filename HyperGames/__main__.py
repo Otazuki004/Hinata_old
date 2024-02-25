@@ -46,7 +46,7 @@ if you need any help [contact us](https://t.me/FutureCity005)!
 """)
     else:
         await message.reply_text(
-            text = NO_ACCOUNT_TXT
+            text = NO_ACCOUNT_TXT,
             reply_markup = InlineKeyboardMarkup(CREATE_AC_BUTTON)
         )
 
