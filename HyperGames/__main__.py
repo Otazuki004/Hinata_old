@@ -16,13 +16,17 @@ logging.basicConfig(
 
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
-CREATE_AC_BUTTON = [
-    [InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]
-]
+CREATE_AC_BUTTON = InlineKeyboardMarkup(
+    [
+        [InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]
+    ]
+)
 
-continue_button = [
-    [InlineKeyboardButton("Contine", callback_data="ACCOUNT_CREATE_CONTINE")]
-]
+continue_button = InlineKeyboardMarkup(
+    [
+        [InlineKeyboardButton("Contine", callback_data="ACCOUNT_CREATE_CONTINE")]
+    ]
+)
 
 registration_text = """
 **🎮 Welcome To Hyper Games ©**
@@ -77,7 +81,7 @@ if you need any help [contact us](https://t.me/FutureCity005)!
     else:
         await message.reply_text(
             text = NO_ACCOUNT_TXT,
-            reply_markup = InlineKeyboardMarkup(CREATE_AC_BUTTON)
+            reply_markup = CREATE_AC_BUTTON
         )
 
 if __name__ == "__main__":
