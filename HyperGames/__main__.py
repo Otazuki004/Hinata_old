@@ -16,6 +16,9 @@ logging.basicConfig(
 
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
+CREATE_AC_BUTTON = [
+    [InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]
+]
 
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER), filters.private)
@@ -43,7 +46,8 @@ if you need any help [contact us](https://t.me/FutureCity005)!
 """)
     else:
         await message.reply_text(
-            text=NO_ACCOUNT_TXT
+            text = NO_ACCOUNT_TXT
+            reply_markup = InlineKeyboardMarkup(CREATE_AC_BUTTON)
         )
 
 if __name__ == "__main__":
