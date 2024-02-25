@@ -85,5 +85,4 @@ if you need any help [contact us](https://t.me/FutureCity005)!
         )
 
 if __name__ == "__main__":
-    bot.start() # STARTING CLIENT
-    pyrogram.idle()
+    bot.run() # STARTING CLIENT
