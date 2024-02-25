@@ -20,6 +20,10 @@ CREATE_AC_BUTTON = [
     [InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]
 ]
 
+continue_button = [
+    [InlineKeyboardButton("Contine", callback_data="ACCOUNT_CREATE_CONTINE")]
+]
+
 registration_text = """
 **🎮 Welcome To Hyper Games ©**
 
@@ -31,10 +35,6 @@ registration_text = """
 **• By Clicking "Continue", you agree to our Terms and Conditions.**
 """
 setupcomplete_text = "**Nice**, you have joined in HyperGames™, Play games and enjoy, in this process you got 1000 coins as reward"
-
-continue_button = [
-    [InlineKeyboardButton("Contine", callback_data="ACCOUNT_CREATE_CONTINE")]
-]
 
 @bot.on_callback_query()
 async def Create_Account(_, CallbackQuery):
