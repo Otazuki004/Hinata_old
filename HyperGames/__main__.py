@@ -5,7 +5,7 @@ import os
 import logging
 import pyrogram
 import random
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 # LOGGING
 logging.basicConfig(
@@ -20,6 +20,36 @@ CREATE_AC_BUTTON = [
     [InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]
 ]
 
+registration_text = """
+**🎮 Welcome To Hyper Games ©**
+
+**• ACCOUNT REGISTRATION 🎮**
+- Join the Hyper Games community now!
+- No personal data required.
+- Your journey begins with a simple command: /continue.
+
+**• By Clicking "Continue", you agree to our Terms and Conditions.**
+"""
+setupcomplete_text = "**Nice**, you have joined in HyperGames™, Play games and enjoy, in this process you got 1000 coins as reward"
+
+continue_button = [
+    [InlineKeyboardButton("Contine", callback_data="ACCOUNT_CREATE_CONTINE")]
+]
+
+@bot.on_callback_query()
+async def Create_Account(_, CallbackQuery):
+    if CallbackQuery.data == "ACCOUNT_CREATE":
+        await CallbackQuery.edit_message_text(
+            text=registration_text,
+            reply_markup=continue_button
+        )
+    elif CallbackQuery.data == "ACCOUNT_CREATE_CONTINE":
+        user_id = CallbackQuery.from_user.id
+        await ADD_NEW_USER(user_id)
+        await ADD_COINS(user_id, 1000)
+        await CallbackQuery.edit_message_text(text=setupcomplete_text)
+        
+        
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER), filters.private)
 async def Start(_, message):
