@@ -5,6 +5,7 @@ import os
 import logging
 import pyrogram
 import random
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # LOGGING
 logging.basicConfig(
@@ -14,6 +15,13 @@ logging.basicConfig(
 )
 
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
+
+NO_ACCOUNT_TXT = f"""
+
+Hey, **{message.from_user.first_name}**🥰
+
+**Seems**, looks like you don't have a account in HyperGames
+Click button below to create a account!"""
 
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER), filters.private)
@@ -34,12 +42,9 @@ HyperGames is a free bot with only purpose to entertaining users, you just need 
 if you need any help [contact us](https://t.me/FutureCity005)!
 """)
     else:
-        await message.reply_text("""
-Hey, **{message.from_user.first_name}**🥰
-
-**Seems** looks like you have to account in HyperGames
-Click button below to create a account!
-""")
+        await message.reply_text(
+            text=NO_ACCOUNT_TXT
+        )
 
 if __name__ == "__main__":
     bot.start() # STARTING CLIENT
