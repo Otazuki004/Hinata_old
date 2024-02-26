@@ -33,9 +33,20 @@ registration_text = """
 **• By Clicking "Continue", you agree to our Terms and Conditions.**
 """
 setupcomplete_text = "**Nice**, you have joined in HyperGames™, Play games and enjoy, in this process you got 1000 coins as reward"
+HELP_TEXT = """
+**/start** - Start me
+**/help** - Get this
+**/profile** - Get your profile or reply a user to get their profile
+**/coins** - Get amount of coins you have
+**/send** - Send coins to another user
+**/bet** - Bet some coins
+**/setname** - USAGE: /setname <new name>, Set a new name, required `1999` coins
+**/setpfp** - Reply to a image and set new pfp, required `1000` coins
+**/fight** - Reply a user and fight, required 500 coins to both players
+"""
 
 @bot.on_callback_query()
-async def Create_Account(_, CallbackQuery):
+async def Callback_query(_, CallbackQuery):
     if CallbackQuery.data == "ACCOUNT_CREATE":
         AVAILABLE_USERS = await GET_AVAILABLE_USERS()
         user_id = CallbackQuery.from_user.id
@@ -53,6 +64,8 @@ async def Create_Account(_, CallbackQuery):
         await ADD_NEW_USER(user_id)
         await ADD_COINS(user_id, 1000)
         await CallbackQuery.edit_message_text(setupcomplete_text)
+    elif CallbackQuery.data == "HELP":
+        await CallbackQuery.edit_message_text(text=HELP_TEXT)
 
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER))
