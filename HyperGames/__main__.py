@@ -13,8 +13,14 @@ CREATE_AC_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("Create Account �
 continue_button = InlineKeyboardMarkup([[InlineKeyboardButton("Continue", callback_data="ACCOUNT_CREATE_CONTINUE")]])
 START_BUTTONS = InlineKeyboardMarkup([
     [
-        InlineKeyboardButton("Help", callback_data="HELP"),
-        InlineKeyboardButton("Hyper Speed ™", callback_data="ACCOUNT_CREAThdE")
+        InlineKeyboardButton("Help", callback_data="HELP")
+    ],
+    [
+        InlineKeyboardButton("Support", url="https://t.me/FutureCity005"),
+        InlineKeyboardButton("HyperSpeed™", url="https://t.me/Hyper_Speed0")
+    ],
+    [
+        InlineKeyboardButton("Owner", url="https://t.me/Otazuki")
     ]
 ])
 registration_text = """
