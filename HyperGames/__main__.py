@@ -27,11 +27,13 @@ setupcomplete_text = "**Nice**, you have joined in HyperGames™, Play games and
 @bot.on_callback_query()
 async def Create_Account(_, CallbackQuery):
     if CallbackQuery.data == "ACCOUNT_CREATE":
+        print("Callback tigered")
         await CallbackQuery.edit_message_text(
             text=registration_text,
             reply_markup=continue_button
         )
     elif CallbackQuery.data == "ACCOUNT_CREATE_CONTINE":
+        print("Account create tigered")
         user_id = CallbackQuery.from_user.id
         await ADD_NEW_USER(user_id)
         await ADD_COINS(user_id, 1000)
@@ -41,6 +43,7 @@ async def Create_Account(_, CallbackQuery):
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER), filters.private)
 async def Start(_, message):
+    print("Start tigered")
     NO_ACCOUNT_TXT = f"""
 Hey, **{message.from_user.first_name}**🥰
 
