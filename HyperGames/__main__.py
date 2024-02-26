@@ -34,6 +34,8 @@ registration_text = """
 """
 setupcomplete_text = "**Nice**, you have joined in HyperGames™, Play games and enjoy, in this process you got 1000 coins as reward"
 HELP_TEXT = """
+**• Help Section**
+
 **/start** - Start me
 **/help** - Get this
 **/profile** - Get your profile or reply a user to get their profile
@@ -70,6 +72,25 @@ async def Callback_query(_, CallbackQuery):
             text=HELP_TEXT,
             reply_markup=BACK_HELP
         )
+    elif CallbackQuery.data == "BACKINHELP":
+        AVAILABLE_USERS = await GET_AVAILABLE_USERS()
+        USER_ID = CallbackQuery.from_user.id
+        if USER_ID in AVAILABLE_USERS:
+            await CallbackQuery.edit_message_text(
+                text=f"""
+Hey, **{CallbackQuery.from_user.first_name}**🥰
+
+HyperGames is a free bot with the sole purpose of entertaining users. You just need to add me to your group. That's easy, right?
+
+**VERSION**: None
+**LAST UPDATE**: [here](https://t.me/Hyper_Speed0)
+
+If you need any help, [contact us](https://t.me/FutureCity005)!
+""",
+                reply_markup=START_BUTTONS
+            )
+        else:
+            print("")
 
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER))
