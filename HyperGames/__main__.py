@@ -11,6 +11,10 @@ PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
 CREATE_AC_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]])
 continue_button = InlineKeyboardMarkup([[InlineKeyboardButton("Continue", callback_data="ACCOUNT_CREATE_CONTINUE")]])
+START_BUTTONS = InlineKeyboardMarkup([
+    [InlineKeyboardButton("Help", callback_data="HELP")
+    InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]
+])
 registration_text = """
 **🎮 Welcome To Hyper Games ©**
 
@@ -67,7 +71,7 @@ HyperGames is a free bot with the sole purpose of entertaining users. You just n
 **LAST UPDATE**: [here](https://t.me/Hyper_Speed0)
 
 If you need any help, [contact us](https://t.me/FutureCity005)!
-""")
+""", reply_markup=START_BUTTONS)
     else:
         await message.reply_text(
             text = NO_ACCOUNT_TXT,
