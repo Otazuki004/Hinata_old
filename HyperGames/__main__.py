@@ -19,7 +19,7 @@ START_BUTTONS = InlineKeyboardMarkup([
         InlineKeyboardButton("➕ Add me in your Group ➕", url="https://t.me/HyperGames0_bot?startgroup=start")
     ],
     [
-        InlineKeyboardButton("» 𝗛ʏᴘᴇʀ 𝗦ᴘᴇᴇᴅ™", url="https://t.me/Otazuki")
+        InlineKeyboardButton("» 𝗛ʏᴘᴇʀ 𝗦ᴘᴇᴇᴅ™", url="https://t.me/Hyper_Speed0")
     ]
 ])
 registration_text = """
