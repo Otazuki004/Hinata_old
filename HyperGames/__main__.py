@@ -7,12 +7,6 @@ import pyrogram
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
-# LOGGING
-logging.basicConfig(
-    format="[Hyper-Games] %(name)s - %(levelname)s - %(message)s",
-    handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
-    level=logging.INFO,
-)
 
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
@@ -73,6 +67,13 @@ if you need any help [contact us](https://t.me/FutureCity005)!
             text = NO_ACCOUNT_TXT,
             reply_markup = CREATE_AC_BUTTON
         )
+
+# LOGGING
+logging.basicConfig(
+    format="[Hyper-Games] %(name)s - %(levelname)s - %(message)s",
+    handlers=[logging.FileHandler("log.txt"), logging.StreamHandler()],
+    level=logging.INFO,
+)
 
 if __name__ == "__main__":
     bot.run() # STARTING CLIENT
