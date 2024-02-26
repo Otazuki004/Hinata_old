@@ -16,17 +16,9 @@ logging.basicConfig(
 
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
-CREATE_AC_BUTTON = InlineKeyboardMarkup(
-    [
-        [InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]
-    ]
-)
+CREATE_AC_BUTTON = InlineKeyboardMarkup(InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE"))
 
-continue_button = InlineKeyboardMarkup(
-    [
-        [InlineKeyboardButton("Contine", callback_data="ACCOUNT_CREATE_CONTINE")]
-    ]
-)
+continue_button = InlineKeyboardMarkup(InlineKeyboardButton("Contine", callback_data="ACCOUNT_CREATE_CONTINE"))
 
 registration_text = """
 **🎮 Welcome To Hyper Games ©**
@@ -51,7 +43,7 @@ async def Create_Account(_, CallbackQuery):
         user_id = CallbackQuery.from_user.id
         await ADD_NEW_USER(user_id)
         await ADD_COINS(user_id, 1000)
-        await CallbackQuery.edit_message_text(text=setupcomplete_text)
+        await CallbackQuery.edit_message_text(setupcomplete_text)
         
         
 # START COMMAND
