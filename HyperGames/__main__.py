@@ -17,9 +17,7 @@ logging.basicConfig(
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
 CREATE_AC_BUTTON = InlineKeyboardMarkup(InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE"))
-
-continue_button = InlineKeyboardMarkup(InlineKeyboardButton("Contine", callback_data="ACCOUNT_CREATE_CONTINE"))
-
+continue_button = InlineKeyboardMarkup(InlineKeyboardButton("Continue", callback_data="ACCOUNT_CREATE_CONTINUE"))
 registration_text = """
 **🎮 Welcome To Hyper Games ©**
 
