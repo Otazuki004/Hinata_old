@@ -26,14 +26,19 @@ setupcomplete_text = "**Nice**, you have joined in HyperGames™, Play games and
 @bot.on_callback_query()
 async def Create_Account(_, CallbackQuery):
     if CallbackQuery.data == "ACCOUNT_CREATE":
-        print("Callback triggered")
+        AVAILABLE_USERS = await GET_AVAILABLE_USERS()
+        user_id = CallbackQuery.from_user.id
+        if user_id in AVAILABLE_USERS:
+            return await CallbackQuery.edit_message_text("You have account already.")
         await CallbackQuery.edit_message_text(
             text=registration_text,
             reply_markup=continue_button
         )
     elif CallbackQuery.data == "ACCOUNT_CREATE_CONTINUE":
-        print("Account create triggered")
+        AVAILABLE_USERS = await GET_AVAILABLE_USERS()
         user_id = CallbackQuery.from_user.id
+        if user_id in AVAILABLE_USERS:
+            return await CallbackQuery.edit_message_text("You have account already.")
         await ADD_NEW_USER(user_id)
         await ADD_COINS(user_id, 1000)
         await CallbackQuery.edit_message_text(setupcomplete_text)
