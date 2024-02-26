@@ -12,8 +12,10 @@ PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 CREATE_AC_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]])
 continue_button = InlineKeyboardMarkup([[InlineKeyboardButton("Continue", callback_data="ACCOUNT_CREATE_CONTINUE")]])
 START_BUTTONS = InlineKeyboardMarkup([
-    [InlineKeyboardButton("Help", callback_data="HELP")
-    InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]
+    [
+        InlineKeyboardButton("Help", callback_data="HELP")
+        InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")
+    ]
 ])
 registration_text = """
 **🎮 Welcome To Hyper Games ©**
