@@ -65,7 +65,7 @@ async def Callback_query(_, CallbackQuery):
         await ADD_COINS(user_id, 1000)
         await CallbackQuery.edit_message_text(setupcomplete_text)
     elif CallbackQuery.data == "HELP":
-        await CallbackQuery.edit_message_text(text=HELP_TEXT)
+        await CallbackQuery.edit_message_text(HELP_TEXT)
 
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER))
