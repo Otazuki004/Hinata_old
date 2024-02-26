@@ -7,11 +7,10 @@ import pyrogram
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
-
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
-CREATE_AC_BUTTON = InlineKeyboardMarkup(InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE"))
-continue_button = InlineKeyboardMarkup(InlineKeyboardButton("Continue", callback_data="ACCOUNT_CREATE_CONTINUE"))
+CREATE_AC_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]])
+continue_button = InlineKeyboardMarkup([[InlineKeyboardButton("Continue", callback_data="ACCOUNT_CREATE_CONTINUE")]])
 registration_text = """
 **🎮 Welcome To Hyper Games ©**
 
@@ -27,28 +26,27 @@ setupcomplete_text = "**Nice**, you have joined in HyperGames™, Play games and
 @bot.on_callback_query()
 async def Create_Account(_, CallbackQuery):
     if CallbackQuery.data == "ACCOUNT_CREATE":
-        print("Callback tigered")
+        print("Callback triggered")
         await CallbackQuery.edit_message_text(
             text=registration_text,
             reply_markup=continue_button
         )
-    elif CallbackQuery.data == "ACCOUNT_CREATE_CONTINE":
-        print("Account create tigered")
+    elif CallbackQuery.data == "ACCOUNT_CREATE_CONTINUE":
+        print("Account create triggered")
         user_id = CallbackQuery.from_user.id
         await ADD_NEW_USER(user_id)
         await ADD_COINS(user_id, 1000)
         await CallbackQuery.edit_message_text(setupcomplete_text)
-        
-        
+
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER))
 async def Start(_, message):
-    print("Start tigered")
+    print("Start triggered")
     NO_ACCOUNT_TXT = f"""
 Hey, **{message.from_user.first_name}**🥰
 
-**Seems**, looks like you don't have a account in HyperGames
-Click button below to create a account!
+**Seems**, looks like you don't have an account in HyperGames
+Click the button below to create an account!
 """
     AVAILABLE_USERS = await GET_AVAILABLE_USERS() # GETTING AVAILABLE USERS IN DATABASE
     START_PICS = ["https://graph.org//file/cf28b09dde9e91d103eac.jpg","https://graph.org//file/e8f4e3ff506cce09b614b.jpg"]
@@ -58,12 +56,12 @@ Click button below to create a account!
         await message.reply_photo(photo=START_PICS, caption=f"""
 Hey, **{message.from_user.first_name}**🥰
 
-HyperGames is a free bot with only purpose to entertaining users, you just need to add me to your group. Thats easy, No?
+HyperGames is a free bot with the sole purpose of entertaining users. You just need to add me to your group. That's easy, right?
 
 **VERSION**: None
 **LAST UPDATE**: [here](https://t.me/Hyper_Speed0)
 
-if you need any help [contact us](https://t.me/FutureCity005)!
+If you need any help, [contact us](https://t.me/FutureCity005)!
 """)
     else:
         await message.reply_text(
