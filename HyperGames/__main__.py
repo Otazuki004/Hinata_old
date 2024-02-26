@@ -13,14 +13,13 @@ CREATE_AC_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("Create Account �
 continue_button = InlineKeyboardMarkup([[InlineKeyboardButton("Continue", callback_data="ACCOUNT_CREATE_CONTINUE")]])
 START_BUTTONS = InlineKeyboardMarkup([
     [
-        InlineKeyboardButton("Help", callback_data="HELP")
+        InlineKeyboardButton("» Help", callback_data="HELP")
     ],
     [
-        InlineKeyboardButton("Support", url="https://t.me/FutureCity005"),
-        InlineKeyboardButton("HyperSpeed™", url="https://t.me/Hyper_Speed0")
+        InlineKeyboardButton("➕ Add me in your Group ➕", url="https://t.me/HyperGames0_bot?startgroup=start")
     ],
     [
-        InlineKeyboardButton("Owner", url="https://t.me/Otazuki")
+        InlineKeyboardButton("» 𝗛ʏᴘᴇʀ 𝗦ᴘᴇᴇᴅ™", url="https://t.me/Otazuki")
     ]
 ])
 registration_text = """
