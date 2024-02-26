@@ -41,7 +41,7 @@ async def Create_Account(_, CallbackQuery):
         
         
 # START COMMAND
-@bot.on_message(filters.command("start", prefixes=HANDLER), filters.private)
+@bot.on_message(filters.command("start", prefixes=HANDLER))
 async def Start(_, message):
     print("Start tigered")
     NO_ACCOUNT_TXT = f"""
