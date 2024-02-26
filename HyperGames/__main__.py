@@ -44,6 +44,7 @@ HELP_TEXT = """
 **/setpfp** - Reply to a image and set new pfp, required `1000` coins
 **/fight** - Reply a user and fight, required 500 coins to both players
 """
+BACK_HELP = InlineKeyboardMarkup([[InlineKeyboardButton("BACK 🔙", callback_data="BACKINHELP")]])
 
 @bot.on_callback_query()
 async def Callback_query(_, CallbackQuery):
@@ -65,12 +66,14 @@ async def Callback_query(_, CallbackQuery):
         await ADD_COINS(user_id, 1000)
         await CallbackQuery.edit_message_text(setupcomplete_text)
     elif CallbackQuery.data == "HELP":
-        await CallbackQuery.edit_message_text(HELP_TEXT)
+        await CallbackQuery.edit_message_text(
+            text=HELP_TEXT,
+            reply_markup=BACK_HELP
+        )
 
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER))
 async def Start(_, message):
-    print("Start triggered")
     NO_ACCOUNT_TXT = f"""
 Hey, **{message.from_user.first_name}**🥰
 
