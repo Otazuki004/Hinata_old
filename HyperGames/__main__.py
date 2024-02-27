@@ -78,12 +78,11 @@ async def Callback_query(_, CallbackQuery):
         if USER_ID in AVAILABLE_USERS:
             await CallbackQuery.edit_message_text(
                 text=f"""
-Hey, **{CallbackQuery.from_user.first_name}**🥰
+Hey, **{CallbackQuery.from_user.first_name}** 🥰
+HyperGames is a free bot with the only purpose of entertaining users. You just need to add me to your group. That's easy, right?
 
-HyperGames is a free bot with the sole purpose of entertaining users. You just need to add me to your group. That's easy, right?
-
-**VERSION**: None
-**LAST UPDATE**: [here](https://t.me/Hyper_Speed0)
+**Version**: 0.001
+**Last Update**: [Here](https://t.me/Hyper_Speed0)
 
 If you need any help, [contact us](https://t.me/FutureCity005)!
 """,
@@ -96,7 +95,7 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
 @bot.on_message(filters.command("start", prefixes=HANDLER))
 async def Start(_, message):
     NO_ACCOUNT_TXT = f"""
-Hey, **{message.from_user.first_name}**🥰
+Hey, **{message.from_user.first_name}** 🥰
 
 **Seems**, looks like you don't have an account in HyperGames
 Click the button below to create an account!
@@ -107,12 +106,11 @@ Click the button below to create an account!
     USER_ID = message.from_user.id # GETTING MESSAGE FROM USER ID
     if USER_ID in AVAILABLE_USERS: # CHECKING USER IN DATABASE
         await message.reply_photo(photo=START_PICS, caption=f"""
-Hey, **{message.from_user.first_name}**🥰
+Hey, **{message.from_user.first_name}** 🥰
+HyperGames is a free bot with the only purpose of entertaining users. You just need to add me to your group. That's easy, right?
 
-HyperGames is a free bot with the sole purpose of entertaining users. You just need to add me to your group. That's easy, right?
-
-**VERSION**: None
-**LAST UPDATE**: [here](https://t.me/Hyper_Speed0)
+**Version**: 0.001
+**Last Update**: [Here](https://t.me/Hyper_Speed0)
 
 If you need any help, [contact us](https://t.me/FutureCity005)!
 """, reply_markup=START_BUTTONS)
