@@ -46,7 +46,7 @@ HELP_TEXT = """
 **• /setpfp** - Reply to a image and set new pfp, required `1000` coins
 **• /fight** - Reply a user and fight, required 500 coins to both players
 """
-BACK_HELP = InlineKeyboardMarkup([[InlineKeyboardButton("BACK 🔙", callback_data="BACKINHELP")]])
+BACK_HELP = InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Go Back", callback_data="BACKINHELP")]])
 
 @bot.on_callback_query()
 async def Callback_query(_, CallbackQuery):
@@ -88,8 +88,7 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
 """,
                 reply_markup=START_BUTTONS
             )
-        else:
-            print("")
+
 
 # START COMMAND
 @bot.on_message(filters.command("start", prefixes=HANDLER))
