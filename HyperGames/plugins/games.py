@@ -1,6 +1,5 @@
 from HyperGames import HANDLER
 from HyperGames.__main__ import bot
-from HyperGames import OWNER_ID
 from pyrogram import filters
 import asyncio
 import os
