@@ -8,20 +8,20 @@ from HyperGames.Database.games import ADD_COINS
 from HyperGames.Database.daily import add_claimed_user, check_claimed_user, update_last_claim_time
 from datetime import datetime, timedelta
 
-@app.on_message(filters.command("daily") & filters.private)
+@bot.on_message(filters.command("daily") & filters.private)
 async def daily_command(_, message: Message):
     user_id = message.from_user.id
 
     # To get bot's username
     try:
-        bot_info = await app.get_me()
+        bot_info = await bot.get_me()
         bot_username = bot_info.username
     except Exception as e:
         print(f"Error getting bot username: {e}")
         return await message.reply("**Error occurred say to owner!**")
 
     # To check user has bot's username in bio or not
-    user = await app.get_chat(user_id)
+    user = await bot.get_chat(user_id)
     user_bio = user.bio if user.bio else None
     if not user_bio or bot_username not in user_bio:
         return await message.reply(f"**🎉 Claim Daily Rewards! 🎁 Add @{bot_username} to Your Bio! 📲 Come Back in 2 Mins for Your Daily Treats! 🕒**")
