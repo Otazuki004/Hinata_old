@@ -112,6 +112,8 @@ async def send_coins(_, message):
         return await message.reply("You need to reply to a user to send coins.")
     if message.reply_to_message.from_user.id == message.from_user.id:
         return await message.reply("You can't send coins to yourself.")
+    if message.reply_to_message.from_user.is_bot:
+        return await message.reply("You can't send coins to bots")
     coins = " ".join(message.command[1:])
     int_coins = int(coins)
     reply_usr = message.reply_to_message.from_user.id
