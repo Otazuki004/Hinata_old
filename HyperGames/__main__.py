@@ -45,6 +45,7 @@ HELP_TEXT = """
 **• /setname** - USAGE: /setname <new name>, Set a new name, required `1999` coins
 **• /setpfp** - Reply to a image and set new pfp, required `1000` coins
 **• /fight** - Reply a user and fight, required 500 coins to both players
+**• /daily** - Get 500 coins for everyday, you need add bot username in your bio to use it.
 """
 BACK_HELP = InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Go Back", callback_data="BACKINHELP")]])
 
