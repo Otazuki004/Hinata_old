@@ -74,6 +74,7 @@ async def get_profile(_, message):
             await message.reply_photo("https://telegra.ph/file/a359e56250bd60eb192ff.jpg", caption=f"""
 **•> GAMER INFO**
 ▰▱▰▱▰▱▰▱▰▱▰▱▰
+
 **➤ Name:** {name}
 **➤ ID:** `{user_id}`
 **➤ Coins:** `{user_coins}`
@@ -93,6 +94,7 @@ async def get_profile(_, message):
             await message.reply_photo(pfp, caption=f"""
 **•> GAMER INFO**
 ▰▱▰▱▰▱▰▱▰▱▰▱▰
+
 **➤ Name:** {name}
 **➤ ID:** `{user_id}`
 **➤ Coins:** `{user_coins}`
