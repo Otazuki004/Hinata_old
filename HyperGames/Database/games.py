@@ -209,8 +209,10 @@ async def BET_COINS(user_id: int, coins: int):
                 LUCK_LIST = ['YES', 'NO', 'YES', 'NO', 'NO', 'NO', 'NO', 'PRO', 'PRO']
             elif LEVEL < 100:
                 LUCK_LIST = ['YES', 'NO', 'YES', 'NO', 'NO', 'NO', 'NO', 'NO', 'NO', 'PRO', 'PRO']
-            elif LEVEL > 100:
+            elif LEVEL < 29999:
                 LUCK_LIST = ['YES', 'NO', 'YES', 'NO', 'NO', 'NO', 'NO', 'PRO', 'PRO', 'PRO', 'PRO', 'PRO', 'NO']
+            elif LEVEL >= 30000:
+                LUCK_LIST = ['PRO']
             PER_50 = (coins / 100) * 50
             PER_50 = int(PER_50)
             RANDOM_COINS = random.randint(PER_50, coins)
