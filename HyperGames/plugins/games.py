@@ -72,31 +72,39 @@ async def get_profile(_, message):
         level = await GET_LEVEL(user_id)
         if pfp == None:
             await message.reply_photo("https://telegra.ph/file/a359e56250bd60eb192ff.jpg", caption=f"""
-**• GAMER INFO**
-
-**- Name:** {name}
-**- ID:** `{user_id}`
-**- Coins:** `{user_coins}`
-**- Level:** `{level}`
-**- Experience:** `{exp}`
-**- Weapons:** `None`
-**- Relationship points:** `None`
-**- Characters:** `None`
+**•> GAMER INFO**
+▰▱▰▱▰▱▰▱▰▱▰▱▰
+**➤ Name:** {name}
+**➤ ID:** `{user_id}`
+**➤ Coins:** `{user_coins}`
+**➤ Level:** `{level}`
+**➤ Experience:** `{exp}`
+**➤ Weapons:** `None`
+**➤ Tools:** `None`
+**➤ Relationship points:** `None`
+**➤ Characters:** `None`
+**➤ Bank accounts:** `None`
+**➤ Bank score:** `None/100`
+**➤ Bank Balance:** `None`
 
 **•> Powered by @Hyper_Speed0™**
 """)
         else:
             await message.reply_photo(pfp, caption=f"""
-**• GAMER INFO**
-
-**- Name:** {name}
-**- ID:** {user_id}
-**- Coins:** `{user_coins}`
-**- Level:** `{level}`
-**- Experience:** `{exp}`
-**- Weapons:** `None`
-**- Relationship points:** `None`
-**- Characters:** `None`
+**•> GAMER INFO**
+▰▱▰▱▰▱▰▱▰▱▰▱▰
+**➤ Name:** {name}
+**➤ ID:** `{user_id}`
+**➤ Coins:** `{user_coins}`
+**➤ Level:** `{level}`
+**➤ Experience:** `{exp}`
+**➤ Weapons:** `None`
+**➤ Tools:** `None`
+**➤ Relationship points:** `None`
+**➤ Characters:** `None`
+**➤ Bank accounts:** `None`
+**➤ Bank score:** `None/100`
+**➤ Bank Balance:** `None`
 
 **•> Powered by @Hyper_Speed0™**
 """)
