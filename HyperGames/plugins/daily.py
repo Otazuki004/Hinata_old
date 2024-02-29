@@ -45,7 +45,7 @@ async def daily_command(_, message: Message):
 
     await ADD_COINS(user_id, 500)
     claimed_users[user_id] = datetime.now()
-    claimed_message = "**🌟 Successfully Claimed! 🎉 Enjoy Your Daily Rewards of 500 Coins! 💰 Keep @{bot_username} in Bio or Lose Rewards! ⚠️ See You Tomorrow!**"
+    claimed_message = f"**🌟 Successfully Claimed! 🎉 Enjoy Your Daily Rewards of 500 Coins! 💰 Keep @{bot_username} in Bio or Lose Rewards! ⚠️ See You Tomorrow!**"
     await message.reply(claimed_message)
 
 # © @KoraXD
