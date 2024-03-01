@@ -8,8 +8,10 @@ from HyperGames.Database.games import ADD_COINS
 from HyperGames.Database.daily import add_claimed_user, check_claimed_user, update_last_claim_time
 from datetime import datetime, timedelta
 
-@bot.on_message(filters.command("daily") & filters.private)
+@bot.on_message(filters.command("daily"))
 async def daily_command(_, message: Message):
+    if not message.chat.type == enums.ChatType.PRIVATE:
+        await message.reply("This command only works on private chat.")
     user_id = message.from_user.id
 
     # To get bot's username
@@ -47,3 +49,5 @@ async def daily_command(_, message: Message):
     await ADD_COINS(user_id, 500)
     claimed_message = f"**🌟 Successfully Claimed! 🎉 Enjoy Your Daily Rewards of 500 Coins! 💰 Keep @{bot_username} in Bio or Lose Rewards! ⚠️ See You Tomorrow!**"
     await message.reply(claimed_message)
+
+# This code rights reserved to © @KoraXD
