@@ -6,7 +6,10 @@ import os
 from HyperGames.Database.games import *
 from pyrogram import enums
 import random
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from restart import restart_program
+
+BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton("» 𝗛ʏᴘᴇʀ 𝗦ᴘᴇᴇᴅ™", url="https://t.me/Hyper_Speed0")]])
 
 async def choice_generator(user_one: int, user_one_lvl: int, user_two: int, user_two_lvl: int):
     if user_one_lvl > user_two_lvl:
@@ -89,7 +92,7 @@ async def get_profile(_, message):
 **➤ Bank Balance:** `None`
 
 **•> Powered by @Hyper_Speed0™**
-""")
+""", reply_markup=BUTTONS)
         else:
             await message.reply_photo(pfp, caption=f"""
 **•> GAMER INFO**
@@ -109,7 +112,7 @@ async def get_profile(_, message):
 **➤ Bank Balance:** `None`
 
 **•> Powered by @Hyper_Speed0™**
-""")
+""", reply_markup=BUTTONS)
     else:
         await message.reply("You don't have a Hyper Games account, Create a Account by /start me in pm")
         return
