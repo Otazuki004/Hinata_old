@@ -7,11 +7,12 @@ from pyrogram.types import Message
 from HyperGames.Database.games import ADD_COINS
 from HyperGames.Database.daily import add_claimed_user, check_claimed_user, update_last_claim_time
 from datetime import datetime, timedelta
+from pyrogram import enums
 
 @bot.on_message(filters.command("daily"))
 async def daily_command(_, message: Message):
     if not message.chat.type == enums.ChatType.PRIVATE:
-        await message.reply("This command only works on private chat.")
+        return await message.reply("This command only works on private chat.")
     user_id = message.from_user.id
 
     # To get bot's username
