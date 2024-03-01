@@ -65,6 +65,8 @@ async def get_profile(_, message):
     if message.reply_to_message:
         if message.chat.type == enums.ChatType.PRIVATE:
             user_id = message.from_user.id
+        elif message.reply_to_message.from_user.is_bot:
+            return await message.reply("You can't get profile to bots.")
         if message.reply_to_message.from_user.id in list_users:
             user_id = message.reply_to_message.from_user.id
         else:
@@ -204,6 +206,10 @@ async def fight(_, message):
     if message.reply_to_message:
         if message.reply_to_message.from_user.id == message.from_user.id:
             return await message.reply("You can't fight yourself!")
+        elif message.chat.type == enums.ChatType.PRIVATE:
+            return await message.reply("This command only works on Groups")
+        elif message.reply_to_message.from_user.is_bot:
+            return await message.reply("You can't fight to bots.")
         list_users = await GET_AVAILABLE_USERS()
         reply_user = message.reply_to_message.from_user.id
         user_id = message.from_user.id
