@@ -63,6 +63,8 @@ async def get_profile(_, message):
     list_users = await GET_AVAILABLE_USERS()
     user_id = message.from_user.id
     if message.reply_to_message:
+        if message.chat.type == enums.ChatType.PRIVATE:
+            user_id = message.from_user.id
         if message.reply_to_message.from_user.id in list_users:
             user_id = message.reply_to_message.from_user.id
         else:
@@ -114,7 +116,7 @@ async def get_profile(_, message):
 **•> Powered by @Hyper_Speed0™**
 """, reply_markup=BUTTONS)
     else:
-        await message.reply("You don't have a Hyper Games account, Create a Account by /start me in pm")
+        await message.reply("You don't have a Hyper Games account, Create a Account by /start")
         return
         
 @bot.on_message(filters.command(["send", "sent", "transfer"], prefixes=HANDLER))
