@@ -190,17 +190,18 @@ async def set_profile_photo(_, message):
 
 @bot.on_message(filters.command(["setname", "setnewname"], prefixes=HANDLER))
 async def set_name(_, message):
-    await message.reply_text("Please enter your new name.")
     user_id = message.from_user.id
-    
-    new_name = " ".join(message.command[1:])
-    status = await SET_USER_NAME(message.from_user.id, new_name)
-    if status == "USER_NOT_FOUND":
-        return await message.reply("You need an account to use this command.")
-    elif status == "NOT_ENOUGH_COINS":
-        return await message.reply("You need at least 1999 coins to use this command.")
-    elif status == "SUCCESS":
-        return await message.reply("Success! Your profile name has been updated.")
+    if user_id not in await GET_AVAILABLE_USERS():
+        return await message.reply("You need a account to use this command")
+    await message.reply_text("Please enter your new name.")
+    @bot.on_message(filters.user(user_id))
+    async def setting_name(_, message):
+        new_name = " ".join(message.command[1:])
+        status = await SET_USER_NAME(message.from_user.id, new_name)
+        if status == "NOT_ENOUGH_COINS":
+            return await message.reply("You need at least 1999 coins to use this command.")
+        elif status == "SUCCESS":
+            return await message.reply("Success! Your profile name has been updated.")
 
 @bot.on_message(filters.command("fight", prefixes=HANDLER))
 async def fight(_, message):
