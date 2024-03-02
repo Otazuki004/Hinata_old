@@ -190,8 +190,9 @@ async def set_profile_photo(_, message):
 
 @bot.on_message(filters.command(["setname", "setnewname"], prefixes=HANDLER))
 async def set_name(_, message):
-    if len(message.command) < 2:
-        return await message.reply_text("Please enter your new name.")
+    await message.reply_text("Please enter your new name.")
+    user_id = message.from_user.id
+    
     new_name = " ".join(message.command[1:])
     status = await SET_USER_NAME(message.from_user.id, new_name)
     if status == "USER_NOT_FOUND":
