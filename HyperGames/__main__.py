@@ -90,8 +90,18 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
 """,
                 reply_markup=START_BUTTONS
             )
-    elif CallbackQuery.data == "DELETE_AC":
-        await REMOVE_USER(CallbackQuery.from_user.id)
+    elif CallbackQuery.data.startswith("DELETE_AC"):
+        callbackdata = CallbackQuery.data
+        user_id = callbackdata.split("DELETE_AC_")[1]
+        user_id = int(user_id)
+        if user_id != CallbackQuery.from_user.id:
+            await Sophia.answer_callback_query(
+                callback_query.id,
+                text="Hello",
+                show_alert=True
+            )
+            return
+        await REMOVE_USER(user_id)
         await CallbackQuery.edit_message_text(
             text="Thanks for using our product.",
             reply_markup=CREATE_AC_BUTTON_AGAIN
