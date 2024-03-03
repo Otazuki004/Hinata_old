@@ -199,7 +199,7 @@ async def set_name(_, message):
     if user_id not in await GET_AVAILABLE_USERS():
         return await message.reply("You need a account to use this command")
     await message.reply_text("Please enter your new name.")
-    @bot.on_message()
+    @bot.on_message(filters.user(user_id))
     async def setting_name(_, message):
         global TASK_COMPLETED
         if message.from_user.id == user_id and TASK_COMPLETED == False:
