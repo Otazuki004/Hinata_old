@@ -204,6 +204,10 @@ async def set_name(_, message):
         global TASK_COMPLETED
         if message.from_user.id == user_id and TASK_COMPLETED == False:
             new_name = message.text
+            if len(new_name) >= 20:
+                await message.reply("Name must be below 20 characters.")
+                TASK_COMPLETED = True
+                return 
             status = await SET_USER_NAME(message.from_user.id, new_name)
             if status == "NOT_ENOUGH_COINS":
                 await message.reply("You need at least 1999 coins to use this command.")
