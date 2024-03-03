@@ -13,6 +13,8 @@ async def GET_AVAILABLE_USERS():
         return value
 
 async def ADD_NEW_USER(user_id):
+    if user_id in await GET_AVAILABLE_USERS():
+        return "USER_ALREADY_EXITS"
     doc = {"_id": 4444 + user_id, "NAME": "Steve_HS"}
     await db.insert_one(doc)
     await db.update_one({"_id": 1}, {"$addToSet": {"USERS": user_id}}, upsert=True)
