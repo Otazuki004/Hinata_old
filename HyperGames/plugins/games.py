@@ -197,7 +197,6 @@ async def set_name(_, message):
     TASK_COMPLETED = False
     @bot.on_message()
     async def setting_name(_, message):
-        global TASK_COMPLETED
         if message.from_user.id == user_id and TASK_COMPLETED == False:
             new_name = message.text
             status = await SET_USER_NAME(message.from_user.id, new_name)
