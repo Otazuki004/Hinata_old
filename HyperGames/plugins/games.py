@@ -193,6 +193,8 @@ TASK_COMPLETED = False
 @bot.on_message(filters.command(["setname", "setnewname"], prefixes=HANDLER))
 async def set_name(_, message):
     global TASK_COMPLETED
+    if TASK_COMPLETED == True:
+        TASK_COMPLETED = False
     user_id = message.from_user.id
     if user_id not in await GET_AVAILABLE_USERS():
         return await message.reply("You need a account to use this command")
