@@ -31,6 +31,8 @@ async def GET_COINS_FROM_USER(user_id: int):
         return 0
 
 async def ADD_COINS(user_id: int, coins: int):
+    if user_id not in await GET_AVAILABLE_USERS():
+        return "USER_NOT_FOUND_CREATE_ACCOUNT_AND_TRY"
     document_id = f"user_{user_id}"
     try:
         await db.update_one(
@@ -43,6 +45,8 @@ async def ADD_COINS(user_id: int, coins: int):
         print(f"Error updating coins for user {user_id}: {e}")
 
 async def REMOVE_USER(user_id):
+    if user_id not in await GET_AVAILABLE_USERS():
+        return "USER_NOT_FOUND"
     document_id = f"user_{user_id}"
     await db.delete_one({"_id": document_id})
     await db.update_one({"_id": 1}, {"$pull": {"USERS": user_id}})
