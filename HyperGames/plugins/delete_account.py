@@ -12,7 +12,7 @@ CONFIRM_BUTTON = InlineKeyboardMarkup([
     [InlineKeyboardButton("Confirm", callback_data="DELETE_AC")]
 ])
 
-@Sophia.on_message(filters.command(["delete_account", "deleteaccount"], prefixes=HANDLER))
+@bot.on_message(filters.command(["delete_account", "deleteaccount"], prefixes=HANDLER))
 async def delete_account(_, message):
     await message.reply(
         text="Do you really want to delete account",
