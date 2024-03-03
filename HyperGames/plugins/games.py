@@ -188,25 +188,19 @@ async def set_profile_photo(_, message):
     else:
         return await message.reply("Please provide a valid image link starting with 'https://'.")
 
-TASK_COMPLETED = False
-
 @bot.on_message(filters.command(["setname", "setnewname"], prefixes=HANDLER))
 async def set_name(_, message):
-    global TASK_COMPLETED
-    if TASK_COMPLETED == True:
-        TASK_COMPLETED = False
+    TASK_COMPLETED = False
     user_id = message.from_user.id
     if user_id not in await GET_AVAILABLE_USERS():
         return await message.reply("You need a account to use this command")
     await message.reply_text("Please enter your new name.")
     @bot.on_message(filters.user(user_id))
     async def setting_name(_, message):
-        global TASK_COMPLETED
         if message.from_user.id == user_id and TASK_COMPLETED == False:
             new_name = message.text
             if len(new_name) >= 20:
-                await message.reply("Name must be below 20 characters.")
-                TASK_COMPLETED = True
+                await message.reply("Name must be below 20 characters!")
                 return 
             status = await SET_USER_NAME(message.from_user.id, new_name)
             if status == "NOT_ENOUGH_COINS":
