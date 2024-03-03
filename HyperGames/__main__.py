@@ -10,6 +10,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
 
 CREATE_AC_BUTTON = InlineKeyboardMarkup([[InlineKeyboardButton("Create Account 🏦", callback_data="ACCOUNT_CREATE")]])
+CREATE_AC_BUTTON_AGAIN = InlineKeyboardMarkup([[InlineKeyboardButton("Join Again", callback_data="ACCOUNT_CREATE")]])
 continue_button = InlineKeyboardMarkup([[InlineKeyboardButton("Continue", callback_data="ACCOUNT_CREATE_CONTINUE")]])
 START_BUTTONS = InlineKeyboardMarkup([
     [
@@ -89,6 +90,12 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
 """,
                 reply_markup=START_BUTTONS
             )
+    elif CallbackQuery.data == "DELETE_AC":
+        await REMOVE_USER(CallbackQuery.from_user.id)
+        await CallbackQuery.edit_message_text(
+            text="Thanks for using our product.",
+            reply_markup=CREATE_AC_BUTTON_AGAIN
+        )
 
 
 # START COMMAND
