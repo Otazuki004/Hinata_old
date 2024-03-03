@@ -11,10 +11,12 @@ HANDLER = ["~",".","!","/","$"]
 MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
 VERSION = 0.001
 
-# CLIENT OF HYPERGAMES
-bot = Client("Hyper-Games", session_string=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root="HyperGames/plugins"))
+# CREATING CLIENT
+if len(BOT_TOKEN) > 150:
+    bot = Client("Hyper-Games", session_string=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root="HyperGames/plugins"))
+else:
+    bot = Client("Hyper-Games", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root="HyperGames/plugins"))
 
 # DATABASE
-
 MONGO_DB = MongoClient(MONGO_DB_URI) # Special Thanks To KoraXD For Giving This Codes!!
 GAME_DATABASE = AsyncIOMotorClient(MONGO_DB_URI)["HYPER_GAMES"]
