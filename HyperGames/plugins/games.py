@@ -202,11 +202,11 @@ async def set_name(_, message):
             new_name = message.text
             status = await SET_USER_NAME(message.from_user.id, new_name)
             if status == "NOT_ENOUGH_COINS":
-                TASK_COMPLETED = True
                 await message.reply("You need at least 1999 coins to use this command.")
-            elif status == "SUCCESS":
                 TASK_COMPLETED = True
+            elif status == "SUCCESS":
                 await message.reply("Success! Your profile name has been updated.")
+                TASK_COMPLETED = True
 
 @bot.on_message(filters.command("fight", prefixes=HANDLER))
 async def fight(_, message):
