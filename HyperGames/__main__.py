@@ -94,7 +94,7 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
         callbackdata = CallbackQuery.data
         user_id = callbackdata.split("DELETE_AC_")[1]
         user_id = int(user_id)
-        if user_id != CallbackQuery.from_user.id:
+        if not user_id == CallbackQuery.from_user.id:
             await Sophia.answer_callback_query(
                 callback_query.id,
                 text="Hello",
