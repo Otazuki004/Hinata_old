@@ -97,8 +97,7 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
         if not user_id == CallbackQuery.from_user.id:
             await Sophia.answer_callback_query(
                 callback_query.id,
-                text="Hello",
-                show_alert=True
+                text="Hiiii"
             )
             return
         await REMOVE_USER(user_id)
