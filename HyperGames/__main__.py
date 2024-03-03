@@ -95,10 +95,7 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
         user_id = callbackdata.split("DELETE_AC_")[1]
         user_id = int(user_id)
         if not user_id == CallbackQuery.from_user.id:
-            await bot.answer_callback_query(
-                Callback_query.id,
-                text="Hiiii"
-            )
+            await callback_query.answer("Hello", show_alert=True)
             return
         await REMOVE_USER(user_id)
         await CallbackQuery.edit_message_text(
