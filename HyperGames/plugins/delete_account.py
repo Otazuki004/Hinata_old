@@ -8,13 +8,13 @@ from pyrogram import enums
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-CONFIRM_BUTTON = InlineKeyboardMarkup([
-    [InlineKeyboardButton("Confirm", callback_data="DELETE_AC")]
-])
 
 @bot.on_message(filters.command(["delete_account", "deleteaccount"], prefixes=HANDLER))
 async def delete_account(_, message):
+    user_id = message.from_user.id
     await message.reply(
         text="Do you really want to delete account",
-        reply_markup=CONFIRM_BUTTON
+        reply_markup=InlineKeyboardMarkup([
+            [InlineKeyboardButton("Confirm", callback_data=f"DELETE_AC_{user_id}")]
+        ])
     )
