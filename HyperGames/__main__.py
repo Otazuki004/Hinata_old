@@ -96,7 +96,7 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
         user_id = int(user_id)
         if not user_id == CallbackQuery.from_user.id:
             await bot.answer_callback_query(
-                callback_query.id,
+                Callback_query.id,
                 text="Hiiii"
             )
             return
