@@ -12,7 +12,7 @@ MONGO_DB_URI = os.environ.get("MONGO_DB_URI")
 VERSION = 0.001
 
 # CLIENT OF HYPERGAMES
-bot = Client("Hyper-Games", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root="HyperGames/plugins"))
+bot = Client("Hyper-Games", session_string=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root="HyperGames/plugins"))
 
 # DATABASE
 
