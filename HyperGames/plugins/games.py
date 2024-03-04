@@ -4,6 +4,7 @@ from pyrogram import filters
 import asyncio
 import os
 from HyperGames.Database.games import *
+from HyperGames.Database.bank import *
 from pyrogram import enums
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -77,6 +78,7 @@ async def get_profile(_, message):
         exp = await GET_EXP(user_id)
         name = await GET_USER_NAME(user_id)
         level = await GET_LEVEL(user_id)
+        bank_score = await GET_BANK_SCORE(user_id)
         if pfp == None:
             await message.reply_photo("https://telegra.ph/file/a359e56250bd60eb192ff.jpg", caption=f"""
 **•> GAMER INFO**
@@ -92,7 +94,7 @@ async def get_profile(_, message):
 **➤ Relationship points:** `None`
 **➤ Characters:** `None`
 **➤ Bank accounts:** `None`
-**➤ Bank score:** `None/100`
+**➤ Bank score:** `{bank_score}/100`
 **➤ Bank Balance:** `None`
 
 **•> Powered by @Hyper_Speed0™**
@@ -112,7 +114,7 @@ async def get_profile(_, message):
 **➤ Relationship points:** `None`
 **➤ Characters:** `None`
 **➤ Bank accounts:** `None`
-**➤ Bank score:** `None/100`
+**➤ Bank score:** `{bank_score}/100`
 **➤ Bank Balance:** `None`
 
 **•> Powered by @Hyper_Speed0™**
