@@ -44,7 +44,7 @@ async def GET_USER_BANK_ACCOUNTS(user_id: int, get_as_count=False):
             value = Find.get("BANKS", [])
             return value
     else:
-        Find = await db.find_one({"_id": {80556 + {user_id}}})
+        Find = await db.find_one({"_id": 80556+user_id})
         if not Find:
             return 0
         else:
