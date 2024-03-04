@@ -1,7 +1,7 @@
 from HyperGames import GAME_DATABASE
 import asyncio
 import random
-from HyperGames.Database.games import GET_AVAILABLE_USERS
+from HyperGames.Database.games import *
 
 db = GAME_DATABASE["Games_RO"]
 AVAILABLE_BANKS = ['TB', 'SBT', 'HB', 'Y_AXIS_BANK', 'CB']
