@@ -177,6 +177,10 @@ async def GET_LEVEL(user_id: int):
             EXP = await GET_EXP(user_id)
             LEVEL = user_data.get("LVL", 0)
             LEVEL_CH = EXP // 250
+            BANK_SCORE = await GET_BANK_SCORE(user_id)
+            BANK_CH = EXP // 12
+            if not BANK_SCORE == BANK_CH:
+                await ADD_BANK_SCORE(user_id, BANK_CH)
             if LEVEL_CH == LEVEL:
                 return user_data.get("LVL", 0)
             else:
