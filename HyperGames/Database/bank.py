@@ -69,7 +69,8 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
 async def GET_USER_COINS_FROM_BANK(user_id: int, bank=None, total_coins=False):
     if total_coins == False:
         if bank == None:
-            return "REQUIRED_1_ANOTHER_ARG_'bank'"
+            raise Exception "required 2 required argument 'user_id' 'bank' only its required when total_coins in False"
+            return
         Find = await db.find_one({"_id": 97280+user_id})
         if not Find:
             return 0
@@ -103,3 +104,6 @@ async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
     except Exception as e:
         print(f"Error while depositing coins to user {user_id}: {e}")
         return f"ERROR, {e}"
+
+async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
+    print("Under development")
