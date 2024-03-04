@@ -152,7 +152,11 @@ async def GET_BANK_SCORE(user_id: int):
     try:
         user_data = await db.find_one({"_id": document_id})
         if user_data:
-            return user_data.get("SCORE", 0)
+            SCORE = user_data.get("SCORE", 0)
+            if SCORE >= 100:
+                return 100
+            else:
+                return SCORE
         else:
             return 0
     except Exception as e:
