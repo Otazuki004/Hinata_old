@@ -21,4 +21,11 @@ LIST_BANKS_BUTTON = InlineKeyboardMarkup([
     [
         InlineKeyboardButton("CyberBank™", callback_data="CB_BANK")
     ]
-]
+])
+
+@bot.on_message(filters.command("cb", prefixes=HANDLER))
+async def create_bank_account(_, message):
+    await message.reply(
+        text="Under development",
+        reply_markup=LIST_BANKS_BUTTON
+    )
