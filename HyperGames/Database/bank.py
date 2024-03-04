@@ -110,7 +110,17 @@ async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
         return "USER_NOT_FOUND"
     elif bank not in AVAILABLE_BANKS:
         return "BANK_NOT_FOUND"
-    elif await GET_USER_COINS_FROM_BANK(user_id) < coins:
+    elif await GET_USER_COINS_FROM_BANK(user_id) > coins:
         return "NOT_ENOUGH_COINS"
     elif bank not in await GET_USER_BANK_ACCOUNTS(user_id):
         return "USER_HAVE_NO_ACCOUNT_IN_THAT_BANK"
+    try:
+        coin_minus = f"-{coins}"
+        coin_minus = int(coin_minus)
+        await db.update_one({"_id": 97280+{user_id}}, {"$inc": {f"{bank}": coin_minus}}, upsert=True)
+        await db.update_one({"_id": 97789+{user_id}}, {"$inc": {f"TOTAL_COINS": coin_minus}}, upsert=True)
+        await ADD_COINS(user_id, coins)
+        return "SUCCESS"
+    except Exception as e:
+        print(f"Error while withdrawing coins to user {user_id}: {e}")
+        return f"ERROR, {e}"
