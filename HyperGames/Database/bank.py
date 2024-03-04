@@ -106,4 +106,11 @@ async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
         return f"ERROR, {e}"
 
 async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
-    
+    if user_id not in await GET_AVAILABLE_USERS():
+        return "USER_NOT_FOUND"
+    elif bank not in AVAILABLE_BANKS:
+        return "BANK_NOT_FOUND"
+    elif await GET_USER_COINS_FROM_BANK(user_id) < coins:
+        return "NOT_ENOUGH_COINS"
+    elif bank not in await GET_USER_BANK_ACCOUNTS(user_id):
+        return "USER_HAVE_NO_ACCOUNT_IN_THAT_BANK"
