@@ -66,6 +66,24 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
     except Exception as e:
         print(f"Error adding new bank account to user {user_id}, {e}")
 
+async def GET_USER_COINS_FROM_BANK(user_id: int, bank=None, total_coins=False):
+    if total_coins == False:
+        if bank == None:
+            return "REQUIRED_1_ANOTHER_ARG_'bank'"
+        Find = await db.find_one({"_id": 97280+user_id})
+        if not Find:
+            return 0
+        else:
+            value = Find.get(bank, 0)
+            return value
+    else:
+        Find = await db.find_one({"_id": 97789+user_id})
+        if not Find:
+            return 0
+        else:
+            value = Find.get("TOTAL_COINS", 0)
+            return value
+    
 async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
     if user_id not in await GET_AVAILABLE_USERS():
         return "USER_NOT_FOUND"
@@ -73,4 +91,15 @@ async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
         return "BANK_NOT_FOUND"
     elif await GET_COINS_FROM_USER(user_id) < coins:
         return "NOT_ENOUGH_COINS"
-    
+    elif bank not in await GET_USER_BANK_ACCOUNTS(user_id):
+        return "USER_HAVE_NO_ACCOUNT_IN_THAT_BANK"
+    try:
+        coin_minus = f"-{coins}"
+        coin_minus = int(coin_minus)
+        await ADD_COINS(user_id, coin_minus)
+        await db.update_one({"_id": 97280+{user_id}}, {"$inc": {f"{bank}": coins}}, upsert=True)
+        await db.update_one({"_id": 97789+{user_id}}, {"$inc": {f"TOTAL_COINS": coins}}, upsert=True)
+        return "SUCCESS"
+    except Exception as e:
+        print(f"Error while depositing coins to user {user_id}: {e}")
+        return f"ERROR, {e}"
