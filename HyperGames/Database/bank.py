@@ -69,7 +69,7 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
 async def GET_USER_COINS_FROM_BANK(user_id: int, bank=None, total_coins=False):
     if total_coins == False:
         if bank == None:
-            raise Exception "required 2 required argument 'user_id' 'bank' only its required when total_coins in False"
+            raise Exception("required 2 required argument 'user_id' 'bank' only its required when total_coins in False")
             return
         Find = await db.find_one({"_id": 97280+user_id})
         if not Find:
