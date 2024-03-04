@@ -37,7 +37,7 @@ async def ADD_BANK_SCORE(user_id: int, score: int):
 
 async def GET_USER_BANK_ACCOUNTS(user_id: int, get_as_count=False):
     if get_as_count == False:
-        Find = await db.find_one({"_id": 80556 + {user_id}})
+        Find = await db.find_one({"_id": 80556+user_id})
         if not Find:
             return None
         else:
