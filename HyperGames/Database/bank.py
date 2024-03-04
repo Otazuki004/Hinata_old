@@ -8,7 +8,8 @@ AVAILABLE_BANKS = ['TB', 'SBT', 'HB', 'Y_AXIS_BANK', 'CB']
 # The meanings of bank above Telegram bank, state Bank of telegram, Hyper bank, Y_AXIS_BANK, Cyber Bank
 
 async def GET_BANK_SCORE(user_id: int):
-    if user_id not in await GET_AVAILABLE_USERS():
+    USRS = await GET_AVAILABLE_USERS()
+    if user_id not in USRS:
         return "USER_NOT_FOUND"
     document_id = f"user_{user_id}"
     try:
@@ -21,10 +22,11 @@ async def GET_BANK_SCORE(user_id: int):
         return print(f"Error getting bank score for user {user_id}: {e}")
 
 async def ADD_BANK_SCORE(user_id: int, score: int):
-    if user_id not in await GET_AVAILABLE_USERS():
+    USRS = await GET_AVAILABLE_USERS()
+    if user_id not in USRS:
         return "USER_NOT_FOUND"
-    elif GET_BANK_SCORE(user_id) >= 100:
-        return "BANK_SCORE_ALREADY_MAX"
+    elif await GET_BANK_SCORE(user_id) >= 100:
+        return
     document_id = f"user_{user_id}"
     try:
         await db.update_one(
@@ -52,7 +54,8 @@ async def GET_USER_BANK_ACCOUNTS(user_id: int, get_as_count=False):
             return value
         
 async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
-    if user_id not in await GET_AVAILABLE_USERS():
+    USRS = await GET_AVAILABLE_USERS()
+    if user_id not in USRS:
         return "USER_NOT_FOUND"
     elif await GET_BANK_SCORE(user_id) < 30:
         return "NOT_ENOUGH_BANK_SCORE"
