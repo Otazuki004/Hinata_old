@@ -80,6 +80,7 @@ async def get_profile(_, message):
         level = await GET_LEVEL(user_id)
         bank_score = await GET_BANK_SCORE(user_id)
         bank_accounts = await GET_USER_BANK_ACCOUNTS(user_id, get_as_count=True)
+        total_coins_bank = await GET_USER_COINS_FROM_BANK(user_id, total_coins=True)
         if pfp == None:
             await message.reply_photo("https://telegra.ph/file/a359e56250bd60eb192ff.jpg", caption=f"""
 **•> GAMER INFO**
@@ -96,7 +97,7 @@ async def get_profile(_, message):
 **➤ Characters:** `None`
 **➤ Bank accounts:** `{bank_accounts}`
 **➤ Bank score:** `{bank_score}/100`
-**➤ Bank Balance:** `None`
+**➤ Bank Balance:** `{total_coins_bank}`
 
 **•> Powered by @Hyper_Speed0™**
 """, reply_markup=BUTTONS)
@@ -116,7 +117,7 @@ async def get_profile(_, message):
 **➤ Characters:** `None`
 **➤ Bank accounts:** `{bank_accounts}`
 **➤ Bank score:** `{bank_score}/100`
-**➤ Bank Balance:** `None`
+**➤ Bank Balance:** `{total_coins_bank}`
 
 **•> Powered by @Hyper_Speed0™**
 """, reply_markup=BUTTONS)
