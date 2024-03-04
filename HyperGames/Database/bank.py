@@ -106,4 +106,4 @@ async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
         return f"ERROR, {e}"
 
 async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
-    print("Under development")
+    
