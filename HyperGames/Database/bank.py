@@ -36,21 +36,30 @@ async def ADD_BANK_SCORE(user_id: int, score: int):
         return print(f"Error updating bank score for user {user_id}: {e}")
 
 async def GET_USER_BANK_ACCOUNTS(user_id, get_as_count=False):
-    Find = await db.find_one({"_id": 1})
-    if not Find:
-        return []
+    if get_as_count == False:
+        Find = await db.find_one({"_id": 80556 + {user_id}})
+        if not Find:
+            return None
+        else:
+            value = Find.get("BANKS", [])
+            return value
     else:
-        value = Find.get("USERS", [])
-        return value
+        Find = await db.find_one({"_id": 80556 + {user_id}})
+        if not Find:
+            return 0
+        else:
+            value = Find.get("NUM_BANKS", 0)
+            return value
         
 async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
     if user_id not in await GET_AVAILABLE_USERS():
         return "USER_NOT_FOUND"
-    elif await GET_BANK_SCORE(user_id) < 25:
+    elif await GET_BANK_SCORE(user_id) < 30:
         return "NOT_ENOUGH_BANK_SCORE"
     elif bank not in AVAILABLE_BANKS:
         return "BANK_NOT_FOUND"
     try:
         await db.update_one({"_id": 80556 + {user_id}}, {"$addToSet": {"BANKS": bank}}, upsert=True)
+        await db.update_one({"_id": 80556 + {user_id}}, {"$inc": {"NUM_BANKS": 1}}, upsert=True)
     except Exception as e:
         print(f"Error adding new bank account to user {user_id}, {e}")
