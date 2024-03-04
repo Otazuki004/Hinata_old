@@ -58,8 +58,19 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
         return "NOT_ENOUGH_BANK_SCORE"
     elif bank not in AVAILABLE_BANKS:
         return "BANK_NOT_FOUND"
+    elif await GET_USER_BANK_ACCOUNTS(user_id) == bank:
+        return "USER_ALREADY_HAVE_ACCOUNT_IN_THIS_BANK"
     try:
-        await db.update_one({"_id": 80556 + {user_id}}, {"$addToSet": {"BANKS": bank}}, upsert=True)
-        await db.update_one({"_id": 80556 + {user_id}}, {"$inc": {"NUM_BANKS": 1}}, upsert=True)
+        await db.update_one({"_id": 80556+{user_id}}, {"$addToSet": {"BANKS": bank}}, upsert=True)
+        await db.update_one({"_id": 80556+{user_id}}, {"$inc": {"NUM_BANKS": 1}}, upsert=True)
     except Exception as e:
         print(f"Error adding new bank account to user {user_id}, {e}")
+
+async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
+    if user_id not in await GET_AVAILABLE_USERS():
+        return "USER_NOT_FOUND"
+    elif bank not in AVAILABLE_BANKS:
+        return "BANK_NOT_FOUND"
+    elif await GET_COINS_FROM_USER(user_id) < coins:
+        return "NOT_ENOUGH_COINS"
+    
