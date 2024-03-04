@@ -79,7 +79,7 @@ async def get_profile(_, message):
         name = await GET_USER_NAME(user_id)
         level = await GET_LEVEL(user_id)
         bank_score = await GET_BANK_SCORE(user_id)
-        bank_accounts = await GET_USER_BANK_ACCOUNTS(user_id)
+        bank_accounts = await GET_USER_BANK_ACCOUNTS(user_id, get_as_count=True)
         if pfp == None:
             await message.reply_photo("https://telegra.ph/file/a359e56250bd60eb192ff.jpg", caption=f"""
 **•> GAMER INFO**
