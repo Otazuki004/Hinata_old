@@ -6,7 +6,6 @@ import logging
 import pyrogram
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
-from HyperGames.Database.bank import *
 
 
 LIST_BANKS_BUTTON = InlineKeyboardMarkup([
