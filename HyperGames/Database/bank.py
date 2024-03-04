@@ -35,7 +35,7 @@ async def ADD_BANK_SCORE(user_id: int, score: int):
     except Exception as e:
         return print(f"Error updating bank score for user {user_id}: {e}")
 
-async def GET_USER_BANK_ACCOUNTS(user_id, get_as_count=False):
+async def GET_USER_BANK_ACCOUNTS(user_id: int, get_as_count=False):
     if get_as_count == False:
         Find = await db.find_one({"_id": 80556 + {user_id}})
         if not Find:
@@ -44,7 +44,7 @@ async def GET_USER_BANK_ACCOUNTS(user_id, get_as_count=False):
             value = Find.get("BANKS", [])
             return value
     else:
-        Find = await db.find_one({"_id": 80556 + {user_id}})
+        Find = await db.find_one({"_id": {80556 + {user_id}}})
         if not Find:
             return 0
         else:
