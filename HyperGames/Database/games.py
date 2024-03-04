@@ -1,7 +1,7 @@
 from HyperGames import GAME_DATABASE
 import asyncio
 import random
-from HyperGames.Database.bank import *
+from HyperGames.Database.bank import GET_BANK_SCORE, ADD_BANK_SCORE
 
 db = GAME_DATABASE["Games_RO"]
 
