@@ -144,6 +144,8 @@ async def ADD_LEVEL(user_id: int, level: int):
                 
 
 async def UPDATE_EXP(user_id: int, exp: int):
+    if user_id not in await GET_AVAILABLE_USERS():
+        return "USER_NOT_FOUND"
     document_id = f"user_{user_id}"
     try:
         await db.update_one(
