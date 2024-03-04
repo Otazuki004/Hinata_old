@@ -188,7 +188,9 @@ async def GET_LEVEL(user_id: int):
         print(f"Error getting level for user {user_id}: {e}")
         return 0
         
-    
+async def ADD_BANK_SCORE():
+    None
+
 async def BET_COINS(user_id: int, coins: int):
     USERS_ACC = await GET_AVAILABLE_USERS()
     LEVEL = await GET_LEVEL(user_id)
