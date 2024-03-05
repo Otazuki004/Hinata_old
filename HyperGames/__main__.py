@@ -50,8 +50,10 @@ HELP_TEXT = """
 """
 BACK_HELP = InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Go Back", callback_data="BACKINHELP")]])
 
+# CALLBACK QUERY 
 @bot.on_callback_query()
 async def Callback_query(_, CallbackQuery):
+    user_id = CallbackQuery.from_user.id
     if CallbackQuery.data == "ACCOUNT_CREATE":
         AVAILABLE_USERS = await GET_AVAILABLE_USERS()
         user_id = CallbackQuery.from_user.id
@@ -102,6 +104,14 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
             text="Thanks for using our product.",
             reply_markup=CREATE_AC_BUTTON_AGAIN
         )
+    elif CallbackQuery.data == "TB_BANK":
+        LOG = await CREATE_USER_BANK_ACCOUNT(user_id, "TB")
+        if LOG == "SUCCESS":
+            await CallbackQuery.edit_message_text(
+                text="SUCCESS BRO")
+        else:
+            await bot.send_message(user_id, LOG)
+            
 
 
 # START COMMAND
