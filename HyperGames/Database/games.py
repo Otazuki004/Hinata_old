@@ -251,8 +251,8 @@ async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
         coin_minus = f"-{coins}"
         coin_minus = int(coin_minus)
         await ADD_COINS(user_id, coin_minus)
-        await db.update_one({"_id": 97280+{user_id}}, {"$inc": {f"{bank}": coins}}, upsert=True)
-        await db.update_one({"_id": 97789+{user_id}}, {"$inc": {f"TOTAL_COINS": coins}}, upsert=True)
+        await db.update_one({"_id": 97280+user_id}, {"$inc": {f"{bank}": coins}}, upsert=True)
+        await db.update_one({"_id": 97789+user_id}, {"$inc": {f"TOTAL_COINS": coins}}, upsert=True)
         return "SUCCESS"
     except Exception as e:
         print(f"Error while depositing coins to user {user_id}: {e}")
@@ -270,8 +270,8 @@ async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
     try:
         coin_minus = f"-{coins}"
         coin_minus = int(coin_minus)
-        await db.update_one({"_id": 97280+{user_id}}, {"$inc": {f"{bank}": coin_minus}}, upsert=True)
-        await db.update_one({"_id": 97789+{user_id}}, {"$inc": {f"TOTAL_COINS": coin_minus}}, upsert=True)
+        await db.update_one({"_id": 97280+user_id}, {"$inc": {f"{bank}": coin_minus}}, upsert=True)
+        await db.update_one({"_id": 97789+user_id}, {"$inc": {f"TOTAL_COINS": coin_minus}}, upsert=True)
         await ADD_COINS(user_id, coins)
         return "SUCCESS"
     except Exception as e:
