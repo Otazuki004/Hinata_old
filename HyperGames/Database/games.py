@@ -66,6 +66,10 @@ async def REMOVE_USER(user_id):
         await db.delete_one({"_id": 80556+user_id})
     except Exception as e:
         print("Its normal error i guess", e)
+    try:
+        await db.delete_one({"_id": 97280+user_id})
+    except Exception as e:
+        print("Its normal error i guess", e)
     
     
 async def SEND_COINS(from_user: int, to_user: int, coins: int):
