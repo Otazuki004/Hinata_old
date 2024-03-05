@@ -3,7 +3,7 @@ import asyncio
 import random
 
 db = GAME_DATABASE["Games_RO"]
-AVAILABLE_BANKS = ['TB', 'SBT', 'HB', 'Y_AXIS_BANK', 'CB']
+AVAILABLE_BANKS = ['TB', 'FB', 'SBI', 'AXIS_BANK', 'CB']
 # The meanings of bank above Telegram bank, state Bank of telegram, Hyper bank, Y_AXIS_BANK, Cyber Bank
 
 async def GET_AVAILABLE_USERS():
