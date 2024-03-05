@@ -202,7 +202,7 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
         return "NOT_ENOUGH_BANK_SCORE"
     elif bank not in AVAILABLE_BANKS:
         return "BANK_NOT_FOUND"
-    elif await GET_USER_BANK_ACCOUNTS(user_id) in bank:
+    elif bank in await GET_USER_BANK_ACCOUNTS(user_id, get_as_count=False):
         return "USER_ALREADY_HAVE_ACCOUNT_IN_THIS_BANK"
     elif await GET_COINS_FROM_USER(user_id) < 2000:
         return "LOW_COINS"
