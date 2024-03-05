@@ -213,6 +213,7 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
         return "SUCCESS"
     except Exception as e:
         print(f"Error adding new bank account to user {user_id}, {e}")
+        return f"ERROR {e}"
 
 async def GET_USER_COINS_FROM_BANK(user_id: int, bank=None, total_coins=False):
     if total_coins == False:
