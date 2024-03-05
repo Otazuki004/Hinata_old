@@ -10,12 +10,12 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQ
 
 LIST_BANKS_BUTTON = InlineKeyboardMarkup([
     [
-        InlineKeyboardButton("Telegram Bank", callback_data="TB_BANK"),
-        InlineKeyboardButton("SBT BANK", callback_data="SBT_BANK")
+        InlineKeyboardButton("Telegram bank", callback_data="TB_BANK"),
+        InlineKeyboardButton("Federal bank", callback_data="FB_BANK")
     ],
     [
-        InlineKeyboardButton("Hyper-Bank™", callback_data="HB_BANK"),
-        InlineKeyboardButton("YaxisBank", callback_data="Y_AXIS_BANK")
+        InlineKeypaboardButton("SBI", callback_data="SBI_BANK"),
+        InlineKeyboardButton("Axis-Bank", callback_data="AXIS_BANK")
     ],
     [
         InlineKeyboardButton("CyberBank™", callback_data="CB_BANK")
