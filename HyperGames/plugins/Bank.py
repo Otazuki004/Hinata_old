@@ -14,7 +14,7 @@ LIST_BANKS_BUTTON = InlineKeyboardMarkup([
         InlineKeyboardButton("Federal bank", callback_data="FB_BANK")
     ],
     [
-        InlineKeypaboardButton("SBI", callback_data="SBI_BANK"),
+        InlineKeyboardButton("SBI", callback_data="SBI_BANK"),
         InlineKeyboardButton("Axis-Bank", callback_data="AXIS_BANK")
     ],
     [
