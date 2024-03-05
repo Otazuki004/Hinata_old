@@ -3,8 +3,7 @@ import asyncio
 import random
 
 db = GAME_DATABASE["Games_RO"]
-AVAILABLE_BANKS = ['TB', 'FB', 'SBI', 'AXIS_BANK', 'CB']
-# The meanings of bank above Telegram bank, state Bank of telegram, Hyper bank, Y_AXIS_BANK, Cyber Bank
+AVAILABLE_BANKS = ['TB', 'FB', 'SBI', 'AXIS', 'CB']
 
 async def GET_AVAILABLE_USERS():
     Find = await db.find_one({"_id": 1})
