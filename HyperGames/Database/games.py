@@ -62,6 +62,10 @@ async def REMOVE_USER(user_id):
         await db.delete_one({"_id": 4444 + user_id})
     except Exception as e:
         print("Its normal error i guess", e)
+    try:
+        await db.delete_one({"_id": 80556+user_id})
+    except Exception as e:
+        print("Its normal error i guess", e)
     
     
 async def SEND_COINS(from_user: int, to_user: int, coins: int):
@@ -213,7 +217,7 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
         return "SUCCESS"
     except Exception as e:
         print(f"Error adding new bank account to user {user_id}, {e}")
-        return f"ERROR {e}"
+        return f"**Error:** {e}"
 
 async def GET_USER_COINS_FROM_BANK(user_id: int, bank=None, total_coins=False):
     if total_coins == False:
