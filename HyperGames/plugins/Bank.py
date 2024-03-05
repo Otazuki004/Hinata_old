@@ -46,3 +46,5 @@ async def Callback_query(_, CallbackQuery):
         if LOG == "SUCCESS":
             await CallbackQuery.edit_message_text(
                 text="SUCCESS BRO")
+        else:
+            await bot.send_message(user_id, LOG)
