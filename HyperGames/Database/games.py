@@ -204,9 +204,12 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
         return "BANK_NOT_FOUND"
     elif await GET_USER_BANK_ACCOUNTS(user_id) == bank:
         return "USER_ALREADY_HAVE_ACCOUNT_IN_THIS_BANK"
+    elif not await GET_COINS_FROM_USER(user_id) >= 2000:
+        return "LOW_COINS
     try:
         await db.update_one({"_id": 80556+{user_id}}, {"$addToSet": {"BANKS": bank}}, upsert=True)
         await db.update_one({"_id": 80556+{user_id}}, {"$inc": {"NUM_BANKS": 1}}, upsert=True)
+        await ADD_COINS(user_id, -2000)
     except Exception as e:
         print(f"Error adding new bank account to user {user_id}, {e}")
 
