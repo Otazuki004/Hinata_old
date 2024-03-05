@@ -24,7 +24,25 @@ LIST_BANKS_BUTTON = InlineKeyboardMarkup([
 
 @bot.on_message(filters.command("cb", prefixes=HANDLER))
 async def create_bank_account(_, message):
+    m = message
+    if user_id not in await GET_AVAILABLE_USERS():
+        return await m.reply("You need a HyperGames account to use this command")
+    elif await GET_BANK_SCORE(user_id) < 30:
+        return await m.reply("You need atleast 30 bank score to create a bank account")
+    elif await GET_COINS_FROM_USER(user_id) < 2000:
+        return await m.reply("You need 2000 coins to create a bank account")
     await message.reply(
-        text="Under development",
+        text="**Choose new the bank which you like**",
         reply_markup=LIST_BANKS_BUTTON
     )
+
+
+@bot.on_callback_query()
+async def Callback_query(_, CallbackQuery):
+    if CallbackQuery.data.endswith("_BANK"):
+        user_id = CallbackQuery.from_user.id
+    if CallbackQuery.data.endswith("TB_BANK"):
+        LOG = await CREATE_USER_BANK_ACCOUNT(user_id, "TB")
+        if LOG == "SUCCESS":
+            await CallbackQuery.edit_message_text(
+                text="SUCCESS BRO")
