@@ -25,6 +25,7 @@ LIST_BANKS_BUTTON = InlineKeyboardMarkup([
 @bot.on_message(filters.command("cb", prefixes=HANDLER))
 async def create_bank_account(_, message):
     m = message
+    user_id = message.from_user.id
     if user_id not in await GET_AVAILABLE_USERS():
         return await m.reply("You need a HyperGames account to use this command")
     elif await GET_BANK_SCORE(user_id) < 30:
