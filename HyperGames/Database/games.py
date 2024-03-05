@@ -207,8 +207,8 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
     elif not await GET_COINS_FROM_USER(user_id) >= 2000:
         return "LOW_COINS"
     try:
-        await db.update_one({"_id": 80556+{user_id}}, {"$addToSet": {"BANKS": bank}}, upsert=True)
-        await db.update_one({"_id": 80556+{user_id}}, {"$inc": {"NUM_BANKS": 1}}, upsert=True)
+        await db.update_one({"_id": 80556+user_id}, {"$addToSet": {"BANKS": bank}}, upsert=True)
+        await db.update_one({"_id": 80556+user_id}, {"$inc": {"NUM_BANKS": 1}}, upsert=True)
         await ADD_COINS(user_id, -2000)
         return "SUCCESS"
     except Exception as e:
