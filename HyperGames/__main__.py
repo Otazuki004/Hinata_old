@@ -109,7 +109,9 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
         if LOG == "SUCCESS":
             await CallbackQuery.edit_message_text(
                 text="SUCCESS BRO")
-        else:
+        elif LOG == "USER_ALREADY_HAVE_ACCOUNT_IN_THIS_BANK":
+            await CallbackQuery.edit_message_text("You have already account in this bank")
+        elif LOG.startswith("ERROR"):
             await bot.send_message(user_id, LOG)
             
 
