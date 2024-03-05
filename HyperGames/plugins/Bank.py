@@ -41,7 +41,7 @@ async def create_bank_account(_, message):
 @bot.on_callback_query()
 async def Callback_query(_, CallbackQuery):
     user_id = CallbackQuery.from_user.id
-    if CallbackQuery.data.endswith("TB_BANK"):
+    if CallbackQuery.data == "TB_BANK":
         LOG = await CREATE_USER_BANK_ACCOUNT(user_id, "TB")
         if LOG == "SUCCESS":
             await CallbackQuery.edit_message_text(
