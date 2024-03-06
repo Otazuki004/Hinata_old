@@ -32,6 +32,8 @@ async def create_bank_account(_, message):
         return await m.reply("You need atleast 30 bank score to create a bank account")
     elif await GET_COINS_FROM_USER(user_id) < 2000:
         return await m.reply("You need 2000 coins to create a bank account")
+    elif await GET_USER_BANK_ACCOUNTS(user_id, get_as_count=True) >= 5:
+        return await message.reply("You have already account in all bank")
     await message.reply(
         text="**Choose new the bank which you like**",
         reply_markup=LIST_BANKS_BUTTON
