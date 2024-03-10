@@ -3,6 +3,7 @@ from HyperGames.Database.games import *
 from pyrogram import Client, filters
 import os
 import logging
+import random
 import pyrogram
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
@@ -34,6 +35,7 @@ async def create_bank_account(_, message):
         return await m.reply("You need 2000 coins to create a bank account")
     elif await GET_USER_BANK_ACCOUNTS(user_id, get_as_count=True) >= 5:
         return await message.reply("You have already account in all bank")
+    LIST_BANKS_BUTTON = random.shuffle(LIST_BANKS_BUTTON)
     await message.reply(
         text="**Choose new the bank which you like**",
         reply_markup=LIST_BANKS_BUTTON
