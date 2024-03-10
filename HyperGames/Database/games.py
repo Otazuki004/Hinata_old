@@ -225,7 +225,7 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
 async def GET_USER_COINS_FROM_BANK(user_id: int, bank=None, total_coins=False):
     if total_coins == False:
         if bank == None:
-            raise Exception("required 2 arguments for getting user coins in specific bank")
+            raise Exception("required 2 arguments 'user_id' and 'bank' for getting user coins in specific bank")
         Find = await db.find_one({"_id": 97280+user_id})
         if not Find:
             return 0
@@ -265,7 +265,7 @@ async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
         return "USER_NOT_FOUND"
     elif bank not in AVAILABLE_BANKS:
         return "BANK_NOT_FOUND"
-    elif not await GET_USER_COINS_FROM_BANK(user_id, bank) > coins:
+    elif not await GET_USER_COINS_FROM_BANK(user_id, bank) >= coins:
         return "NOT_ENOUGH_COINS_IN_BANK"
     elif bank not in await GET_USER_BANK_ACCOUNTS(user_id):
         return "USER_HAVE_NO_ACCOUNT_IN_THAT_BANK"
