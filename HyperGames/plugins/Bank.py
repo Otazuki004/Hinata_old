@@ -9,7 +9,7 @@ import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 
-LIST_BANKS_BUTTON = InlineKeyboardMarkup([
+LIST_BANKS_BUTTON = [
     [
         InlineKeyboardButton("Telegram bank", callback_data="TB_BANK"),
         InlineKeyboardButton("Federal bank", callback_data="FB_BANK")
@@ -21,7 +21,7 @@ LIST_BANKS_BUTTON = InlineKeyboardMarkup([
     [
         InlineKeyboardButton("CyberBank™", callback_data="CB_BANK")
     ]
-])
+]
 
 @bot.on_message(filters.command("cb", prefixes=HANDLER))
 async def create_bank_account(_, message):
@@ -39,7 +39,7 @@ async def create_bank_account(_, message):
     LIST_BANKS_BUTTON = random.shuffle(LIST_BANKS_BUTTON)
     await message.reply(
         text="**Choose new the bank which you like**",
-        reply_markup=LIST_BANKS_BUTTON
+        reply_markup=InlineKeyboardMarkup(LIST_BANKS_BUTTON)
     )
 """
 @bot.on_message(filters.command("deposit", prefixes=HANDLER))
