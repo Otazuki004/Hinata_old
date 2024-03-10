@@ -160,6 +160,7 @@ if __name__ == "__main__":
     except Exception as e:
         if str(e).startswith("Telegram says: [420 FLOOD_WAIT_X]"):
             h = e
+            h = str(h)
             h = h.split("Telegram says: [420 FLOOD_WAIT_X] - A wait of ")[1]
             h = h.split(""" seconds is required (caused by "auth.ImportBotAuthorization")""")[0]
             h = int(h)
