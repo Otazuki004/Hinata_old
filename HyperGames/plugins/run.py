@@ -1,4 +1,4 @@
- import os, sys, io, traceback
+import os, sys, io, traceback
 from datetime import datetime
 from HyperGames.Database.games import *
 from contextlib import redirect_stdout
@@ -10,11 +10,9 @@ from pyrogram import filters
 
 prefix = [".","!","?","*","$","#","/"]
 
-DEVS_ID = [5965055071, 6495253163]
-
 # © KoraXD
 
-@app.on_message(filters.command("sh", prefix) & filters.user(DEVS_ID))
+@app.on_message(filters.command("sh", prefix) & filters.create(developer))
 async def sh(_, message):
 
     if len(message.command) <2:
@@ -41,7 +39,7 @@ async def aexec(code, client, message):
 # © KoraXD
 
 
-@app.on_message(filters.command(["eval"], prefix) & filters.user(DEVS_ID))
+@app.on_message(filters.command(["eval"], prefix) & filters.create(developer))
 async def eval(client, message):
     if len(message.text.split()) <2:
           return await message.reply_text("`No codes found!`")
@@ -96,7 +94,7 @@ async def eval(client, message):
 # © KoraXD
 
 
-@app.on_message(filters.command(["log", "logs"], prefix) & filters.user(DEVS_ID))
+@app.on_message(filters.command(["log", "logs"], prefix) & filters.create(developer))
 async def logs(app, message):
     run_logs = run("tail log.txt")
     text = await message.reply_text("`Getting Logs...`")
@@ -106,7 +104,7 @@ async def logs(app, message):
 
 # © KoraXD
 
-@app.on_message(filters.command(["flogs", "flog"], prefix) & filters.user(DEVS_ID))
+@app.on_message(filters.command(["flogs", "flog"], prefix) & filters.create(developer))
 async def flogs(app, message):
     run_logs = run("cat log.txt")
     text = await message.reply_text("`Sending Full Logs...`")
