@@ -158,13 +158,14 @@ if __name__ == "__main__":
     try:
         bot.run() # STARTING CLIENT
     except Exception as e:
-        if str(e).startswith("pyrogram.errors.exceptions.flood_420.FloodWait"):
+        if str(e).startswith("Telegram says: [420 FLOOD_WAIT_X]"):
             e = h
-            h = h.split("pyrogram.errors.exceptions.flood_420.FloodWait: Telegram says: [420 FLOOD_WAIT_X] - A wait of ")[1]
+            h = h.split("Telegram says: [420 FLOOD_WAIT_X] - A wait of ")[1]
             h = h.split(""" seconds is required (caused by "auth.ImportBotAuthorization")""")[0]
             h = int(h)
             print(f"Bot is in flood wait of {h} seconds, its required, bot automatically starts after {h} seconds")
-            time.sleep(h)
+            time.sleep(h+2)
+            print("BOT STARTING AFTER FLOOD WAIT")
             bot.run()
         else:
             print(e)
