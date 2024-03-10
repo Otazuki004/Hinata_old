@@ -5,6 +5,7 @@ import os
 import logging
 import pyrogram
 import random
+import time
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 
 PWD = f"{os.getcwd()}/" # GETTING CURRENT PATH
@@ -154,5 +155,16 @@ logging.basicConfig(
 )
 
 if __name__ == "__main__":
-    bot.run() # STARTING CLIENT
-    
+    try:
+        bot.run() # STARTING CLIENT
+    except Exception as e:
+        if str(e).startswith("pyrogram.errors.exceptions.flood_420.FloodWait"):
+            e = h
+            h = h.split("pyrogram.errors.exceptions.flood_420.FloodWait: Telegram says: [420 FLOOD_WAIT_X] - A wait of ")[1]
+            h = h.split(""" seconds is required (caused by "auth.ImportBotAuthorization")""")[0]
+            h = int(h)
+            print(f"Bot is in flood wait of {h} seconds, its required, bot automatically starts after {h} seconds")
+            time.sleep(h)
+            bot.run()
+        else:
+            print(e)
