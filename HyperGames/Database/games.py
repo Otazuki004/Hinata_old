@@ -261,7 +261,7 @@ async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
         print(f"Error while depositing coins to user {user_id}: {e}")
         return f"ERROR, {e}"
 
-async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
+async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: str):
     if user_id not in await GET_AVAILABLE_USERS():
         return "USER_NOT_FOUND"
     elif bank not in AVAILABLE_BANKS:
