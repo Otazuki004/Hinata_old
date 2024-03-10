@@ -1,5 +1,6 @@
 import os, sys, io, traceback
-from datetime import datetime 
+from datetime import datetime
+from HyperGames.Database.games import *
 from contextlib import redirect_stdout
 from subprocess import getoutput as run
 from pyrogram.enums import ChatAction
