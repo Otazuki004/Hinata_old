@@ -265,8 +265,8 @@ async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
         return "USER_NOT_FOUND"
     elif bank not in AVAILABLE_BANKS:
         return "BANK_NOT_FOUND"
-    elif await GET_USER_COINS_FROM_BANK(user_id, bank) > coins:
-        return "NOT_ENOUGH_COINS"
+    elif not await GET_USER_COINS_FROM_BANK(user_id, bank) < coins:
+        return "NOT_ENOUGH_COINS_IN_BANK"
     elif bank not in await GET_USER_BANK_ACCOUNTS(user_id):
         return "USER_HAVE_NO_ACCOUNT_IN_THAT_BANK"
     try:
