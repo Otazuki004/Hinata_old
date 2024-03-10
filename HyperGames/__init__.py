@@ -19,7 +19,7 @@ else:
     bot = Client("Hyper-Games", bot_token=BOT_TOKEN, api_id=API_ID, api_hash=API_HASH, plugins=dict(root="HyperGames/plugins"))
 
 # FUNCTION
-async def developer(_, update, _):
+async def developer(_, update, __):
     message=update
     if message.from_user.id in DEVELOPER_ID:
         return True
