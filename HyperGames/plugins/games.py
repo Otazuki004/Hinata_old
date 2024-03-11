@@ -193,14 +193,15 @@ async def set_profile_photo(_, message):
 
 @bot.on_message(filters.command(["setname", "setnewname"], prefixes=HANDLER))
 async def set_name(_, message):
-    TASK_COMPLETED = {}
     user_id = message.from_user.id
+    TASK_COMPLETED = {}
+    TASK_COMPLETED[user_id] = False
     if user_id not in await GET_AVAILABLE_USERS():
         return await message.reply("You need a account to use this command")
     await message.reply_text("Please enter your new name.")
     @bot.on_message(filters.user(user_id))
     async def setting_name(_, message):
-        if message.from_user.id == user_id and not TASK_COMPLETED[user_id]:
+        if message.from_user.id == user_id and not TASK_COMPLETED[user_id] == True:
             new_name = message.text
             if len(new_name) >= 20:
                 await message.reply("Name must be below 20 characters!")
