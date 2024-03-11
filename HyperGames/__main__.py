@@ -140,8 +140,10 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
             return await CallbackQuery.answer("This is not for you!")
         coins = data.split("\nCOINS: ")[1]
         coins = int(coins.split("\n")[0])
+        if coins <= 0:
+            return await CallbackQuery.edit_message_text("Coins must be positive integer!.")
         bank = data.split("\n")[3]
-        await CallbackQuery.edit_message_text("`Depositing...`")
+        await CallbackQuery.edit_message_text("`Withdrawing...`")
         log = await WITHDRAW_COINS_FROM_BANK(user, coins, bank)
         if log == "USER_HAVE_NO_ACCOUNT_IN_THAT_BANK":
             await CallbackQuery.edit_message_text("You don't have account in the selected bank!")
