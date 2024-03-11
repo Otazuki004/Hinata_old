@@ -18,8 +18,10 @@ async def delete_account(_, message):
         text="Do you really want to delete account",
         reply_markup=InlineKeyboardMarkup([
             [
-                InlineKeyboardButton("Confirm", callback_data=f"DELETE_AC_{user_id}"),
-                InlineKeyboardButton("Never!", callback_data="DELETE_AC_NO")
+                InlineKeyboardButton("Confirm", callback_data=f"DELETE_AC_{user_id}")
+            ],
+            [
+                InlineKeyboardButton("Never!", callback_data="NO")
             ]
         ])
     )
