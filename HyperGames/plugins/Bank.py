@@ -23,6 +23,7 @@ LIST_BANKS_BUTTON = InlineKeyboardMarkup([
     ]
 ])
 
+
 @bot.on_message(filters.command("cb", prefixes=HANDLER))
 async def create_bank_account(_, message):
     global LIST_BANKS_BUTTON
@@ -49,7 +50,20 @@ async def deposit_coins(_, message):
         await message.reply("Enter the amount of coins to deposit it.")
         return
     coins = int(" ".join(message.command[1:]))
-    DEPOSIT_STR = f"DEPOSIT_COINS\nUSER: {user_id}\nCOINS: {coins}"
+    DEPOSIT_STR = f"DEPOSIT_COINS\nUSER: {user_id}\nCOINS: {coins}\n"
+    LIST_DEPOSIT_BUTTON = InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton("Telegram bank", callback_data=f"{DEPOSIT_STR}TB"),
+            InlineKeyboardButton("Federal bank", callback_data=f"{DEPOSIT_STR}FB")
+        ],
+        [
+            InlineKeyboardButton("SBI", callback_data=f"{DEPOSIT_STR}SBI"),
+            InlineKeyboardButton("Axis-Bank", callback_data=f"{DEPOSIT_STR}AXIS")
+        ],
+        [
+            InlineKeyboardButton("CyberBank™", callback_data=f"{DEPOSIT_STR}CB")
+        ]
+    ])
     if user_id not in await GET_AVAILABLE_USERS():
         return await m.reply("You need a HyperGames account to use this command")
     elif await GET_USER_BANK_ACCOUNTS(user_id, get_as_count=True) == 0:
