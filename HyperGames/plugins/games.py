@@ -214,6 +214,7 @@ async def set_name(_, message):
             elif status == "SUCCESS":
                 await message.reply("Success! Your profile name has been updated.")
                 TASK_COMPLETED[user_id] = True
+                return 
 
 @bot.on_message(filters.command("fight", prefixes=HANDLER))
 async def fight(_, message):
