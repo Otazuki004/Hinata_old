@@ -132,6 +132,26 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
             await CallbackQuery.edit_message_text(f"**{coins}** has successfully deposited to bank")
         elif log.startswith("ERROR"):
             await CallbackQuery.edit_message_text(log)
+    elif CallbackQuery.data.startswith("WITHDRAW_COINS"):
+        data = CallbackQuery.data
+        user = data.split("\nUSER: ")[1]
+        user = int(user.split("\n")[0])
+        if not user == CallbackQuery.from_user.id:
+            return await CallbackQuery.answer("This is not for you!")
+        coins = data.split("\nCOINS: ")[1]
+        coins = int(coins.split("\n")[0])
+        bank = data.split("\n")[3]
+        await CallbackQuery.edit_message_text("`Depositing...`")
+        log = await WITHDRAW_COINS_FROM_BANK(user, coins, bank)
+        if log == "USER_HAVE_NO_ACCOUNT_IN_THAT_BANK":
+            await CallbackQuery.edit_message_text("You don't have account in the selected bank!")
+        elif log == "NOT_ENOUGH_COINS_IN_BANK":
+            balance = await GET_USER_COINS_FROM_BANK(user, bank):
+            await CallbackQuery.edit_message_text(f"You don't have {coins} in the specific bank, your bank account balance is {balance}!")
+        elif log == "SUCCESS":
+            await CallbackQuery.edit_message_text(f"**{coins}** has successfully withdrawed to you!")
+        elif log.startswith("ERROR"):
+            await CallbackQuery.edit_message_text(log)
 
 
 # START COMMAND
@@ -180,7 +200,7 @@ if __name__ == "__main__":
             h = h.split("Telegram says: [420 FLOOD_WAIT_X] - A wait of ")[1]
             h = h.split(""" seconds is required (caused by "auth.ImportBotAuthorization")""")[0]
             h = int(h)
-            print(f"Bot is in flood wait of {h} seconds, its required, bot automatically starts after {h} seconds")
+            raise Exception(f"Bot is in flood wait of {h} seconds, its required, bot automatically starts after {h} seconds")
             time.sleep(h+2)
             print("BOT STARTING AFTER FLOOD WAIT")
             bot.run()
