@@ -76,3 +76,38 @@ async def deposit_coins(_, message):
             text="Choose the bank below to deposit:",
             reply_markup=LIST_DEPOSIT_BUTTON
         )
+
+@bot.on_message(filters.command("withdraw", prefixes=HANDLER))
+async def WITHDRAW_COINS(_, message):
+    m = message
+    user_id = message.from_user.id
+    if len(message.text.split()) <2:
+        await message.reply("Enter the amount of coins to deposit it.")
+        return
+    coins = int(" ".join(message.command[1:]))
+    WITHDRAW_STR = f"WITHDRAW_COINS\nUSER: {user_id}\nCOINS: {coins}\n"
+    LIST_WITHDRAW_BUTTON = InlineKeyboardMarkup([
+        [
+            InlineKeyboardButton("Telegram bank", callback_data=f"{WITHDRAW_STR}TB"),
+            InlineKeyboardButton("Federal bank", callback_data=f"{WITHDRAW_STR}FB")
+        ],
+        [
+            InlineKeyboardButton("SBI", callback_data=f"{WITHDRAW_STR}SBI"),
+            InlineKeyboardButton("Axis-Bank", callback_data=f"{WITHDRAW_STR}AXIS")
+        ],
+        [
+            InlineKeyboardButton("CyberBank™", callback_data=f"{WITHDRAW_STR}CB")
+        ]
+    ])
+    if user_id not in await GET_AVAILABLE_USERS():
+        return await m.reply("You need a HyperGames account to use this command")
+    elif await GET_USER_BANK_ACCOUNTS(user_id, get_as_count=True) == 0:
+        return await m.reply("You need a bank account to use this command")
+    elif coins <= 0:
+        return await m.reply("Coins must be positive integer!.")
+    else:
+        await m.reply(
+            text="Choose the bank below to withdraw:",
+            reply_markup=LIST_WITHDRAW_BUTTON
+    )
+    
