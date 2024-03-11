@@ -82,7 +82,7 @@ async def WITHDRAW_COINS(_, message):
     m = message
     user_id = message.from_user.id
     if len(message.text.split()) <2:
-        await message.reply("Enter the amount of coins to deposit it.")
+        await message.reply("Enter the amount of coins to withdraw it.")
         return
     coins = int(" ".join(message.command[1:]))
     WITHDRAW_STR = f"WITHDRAW_COINS\nUSER: {user_id}\nCOINS: {coins}\n"
