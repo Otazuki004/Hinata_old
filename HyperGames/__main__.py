@@ -122,7 +122,7 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
         if not user == CallbackQuery.from_user.id:
             return await CallbackQuery.answer("This is not for you!")
         coins = data.split("\nCOINS: ")[1]
-        coins = int(h.split("\n")[0])
+        coins = int(coins.split("\n")[0])
         bank = data.split("\n")[3]
         await CallbackQuery.edit_message_text("`Depositing...`")
         log = await DEPOSIT_COINS(user, coins, bank)
