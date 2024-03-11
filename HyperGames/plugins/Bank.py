@@ -23,7 +23,6 @@ LIST_BANKS_BUTTON = InlineKeyboardMarkup([
     ]
 ])
 
-
 @bot.on_message(filters.command("cb", prefixes=HANDLER))
 async def create_bank_account(_, message):
     global LIST_BANKS_BUTTON
@@ -71,4 +70,7 @@ async def deposit_coins(_, message):
     elif await GET_COINS_FROM_USER(user_id) < coins:
         return await m.reply("You don't have enough coins to deposit.")
     else:
-        Load_msg = await m.reply("`Depositing...`")
+        await m.reply(
+            text="Choose the bank below to deposit:",
+            reply_markup=LIST_DEPOSIT_BUTTON
+        )
