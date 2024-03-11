@@ -119,9 +119,19 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
         data = CallbackQuery.data
         user = data.split("\nUSER: ")[1]
         user = int(user.split("\n")[0])
+        if not user == CallbackQuery.from_user.id:
+            return await CallbackQuery.answer("This is not for you!")
         coins = data.split("\nCOINS: ")[1]
         coins = int(h.split("\n")[0])
         bank = data.split("\n")[3]
+        await CallbackQuery.edit_message_text("`Depositing...`")
+        log = await DEPOSIT_COINS(user, coins, bank)
+        if log == "USER_HAVE_NO_ACCOUNT_IN_THAT_BANK":
+            await CallbackQuery.edit_message_text("You don't have account in the selected bank!")
+        elif log == "SUCCESS":
+            await CallbackQuery.edit_message_text(f"**{coins}** has successfully deposited to bank")
+        elif log.startswith("ERROR"):
+            await CallbackQuery.edit_message_text(log)
 
 
 # START COMMAND
