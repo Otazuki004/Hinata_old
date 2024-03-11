@@ -193,25 +193,26 @@ async def set_profile_photo(_, message):
 
 @bot.on_message(filters.command(["setname", "setnewname"], prefixes=HANDLER))
 async def set_name(_, message):
-    TASK_COMPLETED = False
+    TASK_COMPLETED = {}
     user_id = message.from_user.id
     if user_id not in await GET_AVAILABLE_USERS():
         return await message.reply("You need a account to use this command")
     await message.reply_text("Please enter your new name.")
     @bot.on_message(filters.user(user_id))
     async def setting_name(_, message):
-        if message.from_user.id == user_id and TASK_COMPLETED == False:
+        if message.from_user.id == user_id and not TASK_COMPLETED[user_id]:
             new_name = message.text
             if len(new_name) >= 20:
                 await message.reply("Name must be below 20 characters!")
+                TASK_COMPLETED[user_id] == True
                 return 
             status = await SET_USER_NAME(message.from_user.id, new_name)
             if status == "NOT_ENOUGH_COINS":
                 await message.reply("You need at least 1999 coins to use this command.")
-                TASK_COMPLETED = True
+                TASK_COMPLETED[user_id] = True
             elif status == "SUCCESS":
                 await message.reply("Success! Your profile name has been updated.")
-                TASK_COMPLETED = True
+                TASK_COMPLETED[user_id] = True
 
 @bot.on_message(filters.command("fight", prefixes=HANDLER))
 async def fight(_, message):
