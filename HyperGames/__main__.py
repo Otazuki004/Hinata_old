@@ -105,6 +105,8 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
             text="Thanks for using our product.",
             reply_markup=CREATE_AC_BUTTON_AGAIN
         )
+    elif CallbackQuery.data.startswith("DELETE_AC_NO"):
+        await CallbackQuery.delete()
     elif CallbackQuery.data.endswith("_BANK"):
         bank = CallbackQuery.data.split("_BANK")[0]
         LOG = await CREATE_USER_BANK_ACCOUNT(user_id, bank)
