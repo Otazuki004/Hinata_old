@@ -115,7 +115,13 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
             await CallbackQuery.edit_message_text("You have already account in this bank")
         elif LOG.startswith("ERROR"):
             await bot.send_message(user_id, LOG)
-            
+    elif CallbackQuery.data.startswith("DEPOSIT_COINS"):
+        data = CallbackQuery.data
+        user = data.split("\nUSER: ")[1]
+        user = int(user.split("\n")[0])
+        coins = data.split("\nCOINS: ")[1]
+        coins = int(h.split("\n")[0])
+        bank = data.split("\n")[3]
 
 
 # START COMMAND
