@@ -69,6 +69,8 @@ async def deposit_coins(_, message):
         return await m.reply("You need a bank account to use this command")
     elif await GET_COINS_FROM_USER(user_id) < coins:
         return await m.reply("You don't have enough coins to deposit.")
+    elif coins <= 0:
+        return await m.reply("Coins must be positive integer!.")
     else:
         await m.reply(
             text="Choose the bank below to deposit:",
