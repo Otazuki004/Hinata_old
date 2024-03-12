@@ -103,6 +103,8 @@ async def WITHDRAW_COINS(_, message):
         return await m.reply("You need a HyperGames account to use this command")
     elif await GET_USER_BANK_ACCOUNTS(user_id, get_as_count=True) == 0:
         return await m.reply("You need a bank account to use this command")
+    elif await GET_USER_COINS_FROM_BANK(user_id, total_coins=True) <= 0:
+        return await message.reply("You don't coins in your all accounts!")
     elif coins <= 0:
         return await m.reply("Coins must be positive integer!.")
     else:
