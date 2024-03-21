@@ -1,11 +1,11 @@
 import os, sys, io, traceback
 from datetime import datetime
-from HyperGames.Database.games import *
+from Hinata.Database.main import *
 from contextlib import redirect_stdout
 from subprocess import getoutput as run
 from pyrogram.enums import ChatAction
-from HyperGames import bot as app
-from HyperGames import *
+from Hinata import bot as app
+from Hinata import *
 from pyrogram import filters
 
 prefix = [".","!","?","*","$","#","/"]
