@@ -1,4 +1,4 @@
-from HyperGames import GAME_DATABASE
+from Hinata import GAME_DATABASE
 from datetime import datetime, timedelta
 
 db = GAME_DATABASE["Games_RO"]
