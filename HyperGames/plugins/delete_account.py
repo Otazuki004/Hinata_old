@@ -1,9 +1,9 @@
-from HyperGames import HANDLER
-from HyperGames.__main__ import bot
+from Hinata import HANDLER
+from Hinata.__main__ import bot
 from pyrogram import filters
 import asyncio
 import os
-from HyperGames.Database.games import *
+from Hinata.Database.main import *
 from pyrogram import enums
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
