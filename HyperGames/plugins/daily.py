@@ -1,11 +1,11 @@
 # © @KoraXD
 
-from HyperGames import HANDLER
-from HyperGames.__main__ import bot
+from Hinata import HANDLER
+from Hinata.__main__ import bot
 from pyrogram import filters
 from pyrogram.types import Message
-from HyperGames.Database.games import ADD_COINS
-from HyperGames.Database.daily import add_claimed_user, check_claimed_user, update_last_claim_time
+from Hinata.Database.main import ADD_COINS
+from Hinata.Database.daily import add_claimed_user, check_claimed_user, update_last_claim_time
 from datetime import datetime, timedelta
 from pyrogram import enums
 
