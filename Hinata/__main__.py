@@ -25,16 +25,16 @@ START_BUTTONS = InlineKeyboardMarkup([
     ]
 ])
 registration_text = """
-**🎮 Welcome To Hyper Games ©**
+**🎮 Welcome To Account Registration**
 
 **• ACCOUNT REGISTRATION 🎮**
-- Join the Hyper Games community now!
+- Join the Hinata community now!
 - No personal data required.
-- Your journey begins with a simple command: /continue.
+- Your journey begins with clicking: continue.
 
 **• By Clicking "Continue", you agree to our Terms and Conditions.**
 """
-setupcomplete_text = "**Nice**, you have joined in HyperGames™, Play games and enjoy, in this process you got 1000 coins as reward"
+setupcomplete_text = "Your account has been created successfully, Check the commands using /help!"
 HELP_TEXT = """
 **• Help Section**
 
@@ -162,10 +162,7 @@ If you need any help, [contact us](https://t.me/FutureCity005)!
 @bot.on_message(filters.command("start", prefixes=HANDLER))
 async def Start(_, message):
     NO_ACCOUNT_TXT = f"""
-Hey, **{message.from_user.first_name}** 🥰
-
-**Seems**, looks like you don't have an account in HyperGames
-Click the button below to create an account!
+You don't have a account, create your new account using clicking button below!
 """
     AVAILABLE_USERS = await GET_AVAILABLE_USERS() # GETTING AVAILABLE USERS IN DATABASE
     START_PICS = ["https://graph.org//file/cf28b09dde9e91d103eac.jpg","https://graph.org//file/e8f4e3ff506cce09b614b.jpg"]
@@ -173,13 +170,7 @@ Click the button below to create an account!
     USER_ID = message.from_user.id # GETTING MESSAGE FROM USER ID
     if USER_ID in AVAILABLE_USERS: # CHECKING USER IN DATABASE
         await message.reply_photo(photo=START_PICS, caption=f"""
-Hey, **{message.from_user.first_name}** 🥰
-HyperGames is a free bot with the only purpose of entertaining users. You just need to add me to your group. That's easy, right?
-
-**Version**: 0.001
-**Last Update**: [Here](https://t.me/Hyper_Speed0)
-
-If you need any help, [contact us](https://t.me/FutureCity005)!
+        UI UNDER DEVELOPMENT 
 """, reply_markup=START_BUTTONS)
     else:
         await message.reply_text(
