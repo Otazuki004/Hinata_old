@@ -1,1 +1,1 @@
-worker: python3 -m HyperGames
+worker: python3 -m Hinata
