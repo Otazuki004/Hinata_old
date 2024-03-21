@@ -1,5 +1,5 @@
-from HyperGames import *
-from HyperGames.Database.games import *
+from Hinata import *
+from Hinata.Database.games import *
 from pyrogram import Client, filters
 import os
 import logging
