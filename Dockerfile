@@ -1,6 +1,6 @@
 FROM python
 
-WORKDIR /root/HyperGames
+WORKDIR /root/Hinata
 
 COPY . .
 
