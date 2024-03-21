@@ -1,5 +1,5 @@
 from Hinata import *
-from Hinata.Database.games import *
+from Hinata.Database.main import *
 from pyrogram import Client, filters
 import os
 import logging
