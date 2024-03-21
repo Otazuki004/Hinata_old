@@ -165,7 +165,7 @@ async def Start(_, message):
 You don't have a account, create your new account using clicking button below!
 """
     AVAILABLE_USERS = await GET_AVAILABLE_USERS() # GETTING AVAILABLE USERS IN DATABASE
-    START_PICS = ["https://graph.org//file/cf28b09dde9e91d103eac.jpg","https://graph.org//file/e8f4e3ff506cce09b614b.jpg"]
+    START_PICS = ["https://telegra.ph/file/7c9b3c398bca04f56b1a9.jpg","https://graph.org//file/e8f4e3ff506cce09b614b.jpg"]
     START_PICS = random.choice(START_PICS)
     USER_ID = message.from_user.id # GETTING MESSAGE FROM USER ID
     if USER_ID in AVAILABLE_USERS: # CHECKING USER IN DATABASE
