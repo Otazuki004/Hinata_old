@@ -83,13 +83,11 @@ async def Callback_query(_, CallbackQuery):
         if USER_ID in AVAILABLE_USERS:
             await CallbackQuery.edit_message_text(
                 text=f"""
-Hey, **{CallbackQuery.from_user.first_name}** 🥰
-HyperGames is a free bot with the only purpose of entertaining users. You just need to add me to your group. That's easy, right?
+**👋🏻 Hey {CallbackQuery.from_user.first_name}-san!**
 
-**Version**: 0.001
-**Last Update**: [Here](https://t.me/Hyper_Speed0)
+__🎮 I'm your Hinata Game Bot, ready to be your loyal ally, just like Hinata is to Naruto! ❤️ Let's dive into exciting games and mysteries together! 👀 Ready for an epic adventure? 💫__
 
-If you need any help, [contact us](https://t.me/FutureCity005)!
+**🗯️ Check Below Buttons For More!**
 """,
                 reply_markup=START_BUTTONS
             )
@@ -165,12 +163,16 @@ async def Start(_, message):
 You don't have a account, create your new account using clicking button below!
 """
     AVAILABLE_USERS = await GET_AVAILABLE_USERS() # GETTING AVAILABLE USERS IN DATABASE
-    START_PICS = ["https://telegra.ph/file/7c9b3c398bca04f56b1a9.jpg","https://graph.org//file/e8f4e3ff506cce09b614b.jpg"]
+    START_PICS = ["https://telegra.ph/file/7c9b3c398bca04f56b1a9.jpg","https://telegra.ph/file/c08f34182779d3461367d.jpg"]
     START_PICS = random.choice(START_PICS)
     USER_ID = message.from_user.id # GETTING MESSAGE FROM USER ID
     if USER_ID in AVAILABLE_USERS: # CHECKING USER IN DATABASE
         await message.reply_photo(photo=START_PICS, caption=f"""
-        UI UNDER DEVELOPMENT 
+**👋🏻 Hey {message.from_user.first_name}-san!**
+
+__🎮 I'm your Hinata Game Bot, ready to be your loyal ally, just like Hinata is to Naruto! ❤️ Let's dive into exciting games and mysteries together! 👀 Ready for an epic adventure? 💫__
+
+**🗯️ Check Below Buttons For More!**
 """, reply_markup=START_BUTTONS)
     else:
         await message.reply_text(
