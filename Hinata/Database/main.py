@@ -1,4 +1,4 @@
-from HyperGames import GAME_DATABASE
+from Hinata import GAME_DATABASE
 import asyncio
 import random
 
