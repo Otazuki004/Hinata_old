@@ -23,7 +23,7 @@ LIST_BANKS_BUTTON = InlineKeyboardMarkup([
     ]
 ])
 
-@bot.on_message(filters.command("cb", prefixes=HANDLER))
+@bot.on_message(filters.command("create_bank", prefixes=HANDLER))
 async def create_bank_account(_, message):
     global LIST_BANKS_BUTTON
     m = message
