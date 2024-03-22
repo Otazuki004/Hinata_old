@@ -18,7 +18,7 @@ START_BUTTONS = InlineKeyboardMarkup([
         InlineKeyboardButton("» Help", callback_data="HELP")
     ],
     [
-        InlineKeyboardButton("➕ Add me in your Group ➕", url="https://t.me/HyperGames0_bot?startgroup=start")
+        InlineKeyboardButton("➕ Add me in your Group ➕", url="https://t.me/Hinata7bot?startgroup=start")
     ],
     [
         InlineKeyboardButton("» 𝗛ʏᴘᴇʀ 𝗦ᴘᴇᴇᴅ™", url="https://t.me/Hyper_Speed0")
@@ -30,7 +30,7 @@ registration_text = """
 **• ACCOUNT REGISTRATION 🎮**
 - Join the Hinata community now!
 - No personal data required.
-- Your journey begins with clicking: continue.
+- Your journey begins with clicking: Continue.
 
 **• By Clicking "Continue", you agree to our Terms and Conditions.**
 """
@@ -48,8 +48,19 @@ HELP_TEXT = """
 **• /setpfp** - Reply to a image and set new pfp, required `1000` coins
 **• /fight** - Reply a user and fight, required 500 coins to both players
 **• /daily** - Get 500 coins for everyday, you need add bot username in your bio to use it.
+**• /deposit** - Deposit your coins to bank!
+**• /withdraw** - Withdraw your coins from back!
+**• /create_bank** - Create a new bank account 
 """
-BACK_HELP = InlineKeyboardMarkup([[InlineKeyboardButton("🔙 Go Back", callback_data="BACKINHELP")]])
+BACK_HELP = InlineKeyboardMarkup(
+    [
+        [
+            InlineKeyboardButton("»", callback_data="2PAGEHELP")
+        ],
+        [
+            InlineKeyboardButton("🔙 Go Back", callback_data="BACKINHELP")
+        ],
+    ])
 
 # CALLBACK QUERY 
 @bot.on_callback_query()
