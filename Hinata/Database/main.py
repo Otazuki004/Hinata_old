@@ -363,7 +363,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                 if user_data:
                     TIME = user_data.get(f"{user_id}_SPAM")
                     ping_time = (datetime.now() - TIME).total_seconds() * 1000
-                    uptime = ((datetime.now() - TIME).total_seconds()
+                    uptime = (datetime.now() - TIME).total_seconds()
                     hours, remainder = divmod(uptime, 3600)
                     minutes, seconds = divmod(remainder, 60)
                     END = seconds
