@@ -356,7 +356,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
             return "SUCCESS"
         else:
             if user_id == 0:
-                raise "You need enter user id to get their spam stats"
+                raise Exception("You need enter user id to get their spam stats")
                 return USER_ID_NOT_FOUND
             else:
                 user_data = await db.find_one({"_id": 1})
@@ -377,7 +377,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                 else:
                     return "NORMAL"
     except Exception as e:
-        raise "Something went wrong on SPAM_CONTROL: {e}"
+        raise Exception(f"Something went wrong on SPAM_CONTROL: {e}")
         return f"ERROR: {e}"
         
 async def BET_COINS(user_id: int, coins: int):
