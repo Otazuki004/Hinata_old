@@ -3,7 +3,7 @@ from pyrogram.types import *
 
 from Hinata import *
 from Hinata.Database.main import *
-
+app = bot
 async def add_item(user_id: int, item_id: int):
     doc = {'player': user_id, 'item_id': item_id, 'quantity': 1}
     result = await db.inventory.find_one(doc)
