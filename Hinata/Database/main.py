@@ -337,6 +337,7 @@ async def GET_LEVEL(user_id: int):
 async def BET_BLOCKED(user_id: int, REMOVE=False):
     if REMOVE == False:
         await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": 1}}, upsert=True)
+        user_data = await db.find_one({"_id": 1})
         COUNT = user_data.get(f"{user_id}_BET_BLOCK")
         if COUNT >= 5:
             return "BLOCK"
