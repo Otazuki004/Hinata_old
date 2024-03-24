@@ -370,7 +370,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     minutes, seconds = divmod(remainder, 60)
                     END = float(seconds)
                     if END <= 4.2:
-                        log == await BET_BLOCKED(user_id)
+                        log = await BET_BLOCKED(user_id)
                         if log == "BLOCK":
                             return "BLOCK"
                     if END > 60*10:
