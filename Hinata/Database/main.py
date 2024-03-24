@@ -343,9 +343,9 @@ async def BET_BLOCKED(user_id, REMOVE=False):
         if user_data:
             COUNT = user_data.get(f"{user_id}_BET_BLOCK")
             if REMOVE == True:
-                await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": int(-{COUNT})}}, upsert=True)
+                await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": -{COUNT}}}, upsert=True)
                 return "SUCCESS"
-            if COUNT > 5:
+            if COUNT >= 5:
                 return "BLOCK"
 
 async def SPAM_CONTROL(user_id: int, GET=False):
@@ -363,16 +363,17 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                 if not user_data == None:
                     TIME = user_data.get(f"{user_id}_SPAM")
                     if TIME == None:
-                        return "NORMAL"
+                        datetime.now()
+                        await asyncio.sleep(4.2)
                     ping_time = (datetime.now() - TIME).total_seconds() * 1000
                     uptime = (datetime.now() - TIME).total_seconds()
                     hours, remainder = divmod(uptime, 3600)
                     minutes, seconds = divmod(remainder, 60)
-                    END = seconds
-                    if END <= 2.2:
+                    END = float(seconds)
+                    if END <= 4.2:
                         log == await BET_BLOCKED(user_id)
                         if log == "BLOCK":
-                            return log
+                            return "BLOCK"
                     if END > 60*10:
                         await BET_BLOCKED(user_id, REMOVE=True)
                     return "NORMAL"
@@ -393,7 +394,7 @@ async def BET_COINS(user_id: int, coins: int):
     elif coins <= 0:
         return "NOT_POSTIVE_NUMBER"
     elif await SPAM_CONTROL(user_id, GET=True) == "BLOCK":
-        return "SPAMER"
+        return print("User block")
     elif coins <= COINS_USR:
         try:
             if LEVEL < 1:
