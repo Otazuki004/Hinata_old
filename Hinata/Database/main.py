@@ -336,7 +336,7 @@ async def GET_LEVEL(user_id: int):
 
 async def BET_BLOCKED(user_id: int, REMOVE=False):
     if REMOVE == False:
-        await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": 1}}, upsert=True)
+        await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": 1}})
         user_data = await db.find_one({"_id": 1})
         COUNT = user_data.get(f"{user_id}_BET_BLOCK")
         if COUNT >= 5:
@@ -347,7 +347,7 @@ async def BET_BLOCKED(user_id: int, REMOVE=False):
         if user_data:
             COUNT = user_data.get(f"{user_id}_BET_BLOCK")
             if REMOVE == True:
-                await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": int(-{COUNT})}}, upsert=True)
+                await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": {-COUNT}}})
                 return "SUCCESS"
             
 async def SPAM_CONTROL(user_id: int, GET=False):
