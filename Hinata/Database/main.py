@@ -356,7 +356,11 @@ async def SPAM_CONTROL(user_id: int, GET=False):
     time = str(datetime.now())
     try:
         if GET == False:
-            await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": time}}, upsert=True)
+            try:
+                await db.insert_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}}, upsert=True)
+            except Exception as e:
+                print(e)
+                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}}, upsert=True)
             return "SUCCESS"
         else:
             if user_id == 0:
