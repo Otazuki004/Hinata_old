@@ -366,8 +366,6 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                 user_data = await db.find_one({"_id": 1})
                 if not user_data == None:
                     TIME = user_data.get(f"{user_id}_SPAM")
-                    if TIME == None:
-                        TIME = datetime.now()
                     ping_time = (datetime.now() - TIME).total_seconds() * 1000
                     uptime = (datetime.now() - TIME).total_seconds()
                     hours, remainder = divmod(uptime, 3600)
@@ -376,6 +374,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     if END <= 4.2:
                         log = await BET_BLOCKED(user_id)
                         if log == "BLOCKED":
+                            await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": time}}, upsert=True)
                             return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                     if END > 60*10:
                         await BET_BLOCKED(user_id, REMOVE=True)
