@@ -340,7 +340,7 @@ async def BET_BLOCKED(user_id: int, REMOVE=False):
         user_data = await db.find_one({"_id": 1})
         COUNT = user_data.get(f"{user_id}_BET_BLOCK")
         if COUNT >= 5:
-            return "BLOCK"
+            return "BLOCKED"
         return "SUCCESS"
     else:
         user_data = await db.find_one({"_id": 1})
@@ -375,8 +375,8 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     END = float(seconds)
                     if END <= 4.2:
                         log = await BET_BLOCKED(user_id)
-                        if log == "BLOCK":
-                            return "BLOCK"
+                        if log == "BLOCKED":
+                            return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                     if END > 60*10:
                         await BET_BLOCKED(user_id, REMOVE=True)
                     return "NORMAL"
@@ -396,8 +396,8 @@ async def BET_COINS(user_id: int, coins: int):
         return "NOT_ENOUGH_COINS"
     elif coins <= 0:
         return "NOT_POSTIVE_NUMBER"
-    elif await SPAM_CONTROL(user_id, GET=True) == "BLOCK":
-        return print("User block")
+    elif block_msg = await SPAM_CONTROL(user_id, GET=True).startswith("BLOCKED"):
+        return block_msg
     elif coins <= COINS_USR:
         try:
             if LEVEL < 1:
