@@ -370,6 +370,8 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                 user_data = await db.find_one({"_id": 1})
                 if not user_data == None:
                     TIME = user_data.get(f"{user_id}_SPAM")
+                    if TIME == None:
+                        TIME = str(datetime.now()(
                     TIME = datetime.strptime(TIME, "%Y-%m-%d %H:%M:%S.%f")
                     ping_time = (datetime.now() - TIME).total_seconds() * 1000
                     uptime = (datetime.now() - TIME).total_seconds()
