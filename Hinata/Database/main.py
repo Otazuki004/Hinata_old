@@ -349,7 +349,7 @@ async def BET_BLOCKED(user_id, REMOVE=False):
                 return "BLOCK"
 
 async def SPAM_CONTROL(user_id: int, GET=False):
-    time = datetime.now
+    time = datetime.now()
     try:
         if GET == False:
             await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": time}}, upsert=True)
