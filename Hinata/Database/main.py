@@ -389,6 +389,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
 async def BET_COINS(user_id: int, coins: int):
     USERS_ACC = await GET_AVAILABLE_USERS()
     LEVEL = await GET_LEVEL(user_id)
+    block_msg = await SPAM_CONTROL(user_id, GET=True)
     if user_id not in USERS_ACC:
         return "USER_NOT_FOUND"
     COINS_USR = await GET_COINS_FROM_USER(user_id)
@@ -396,7 +397,7 @@ async def BET_COINS(user_id: int, coins: int):
         return "NOT_ENOUGH_COINS"
     elif coins <= 0:
         return "NOT_POSTIVE_NUMBER"
-    elif block_msg = await SPAM_CONTROL(user_id, GET=True).startswith("BLOCKED"):
+    elif block_msg.startswith("BLOCKED"):
         return block_msg
     elif coins <= COINS_USR:
         try:
