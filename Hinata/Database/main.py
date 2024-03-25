@@ -383,13 +383,17 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     if END <= 4.2:
                         if log == "BLOCKED":
                             try:
+                                if END >= 60*10:
+                                    await BET_BLOCKED(user_id, REMOVE=True)
+                                    return "NORMAL"
                                 return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                             except Exception as e:
                                 raise Exception(e)
-                    elif END >= 60*10:
-                        await BET_BLOCKED(user_id, REMOVE=True)
                     elif log == "BLOCKED":
                         try:
+                            if END >= 60*10:
+                                await BET_BLOCKED(user_id, REMOVE=True)
+                                return "NORMAL"
                             return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                         except Exception as e:
                             raise Exception(e)
@@ -405,6 +409,8 @@ async def BET_COINS(user_id: int, coins: int):
     USERS_ACC = await GET_AVAILABLE_USERS()
     LEVEL = await GET_LEVEL(user_id)
     block_msg = await SPAM_CONTROL(user_id, GET=True)
+    if block_msg == None:
+        block_msg = "ntg"
     if user_id not in USERS_ACC:
         return "USER_NOT_FOUND"
     COINS_USR = await GET_COINS_FROM_USER(user_id)
