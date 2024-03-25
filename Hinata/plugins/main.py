@@ -172,6 +172,9 @@ async def bet_coins(_, message):
         return await message.reply(f"Sorry, you lost {int_coins} coins.")
     elif bet_status == "PRO":
         return await message.reply(f"Congratulations! You won {int_coins*2} coins with a pro bet!")
+    elif bet_status.startswith("BLOCKED"):
+        h = bet_status.split("BLOCKED_")[1]
+        return await message.reply(f"You have blocked using bet for 10 minutes, time you blocked: {h}")
     else:
         return await message.reply(f"You won {bet_status} coins!")
 
