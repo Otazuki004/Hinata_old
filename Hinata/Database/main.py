@@ -477,4 +477,4 @@ async def BET_COINS(user_id: int, coins: int):
     elif to_user_id in USERS_LIST:
         return "NEW_ID_ALREADY_EXITS"
     document_id = f"user_{old_account_id}"
-    """ # i will complete soon
+    """ # i will complete soon .
