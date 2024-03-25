@@ -358,10 +358,10 @@ async def SPAM_CONTROL(user_id: int, GET=False):
     try:
         if GET == False:
             try:
-                await db.insert_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}}, upsert=True)
+                await db.insert_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
             except Exception as e:
                 print(e)
-                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}}, upsert=True)
+                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
             return "SUCCESS"
         else:
             if user_id == 0:
@@ -379,16 +379,22 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     hours, remainder = divmod(uptime, 3600)
                     minutes, seconds = divmod(remainder, 60)
                     END = float(seconds)
+                    log = await BET_BLOCKED(user_id)
                     if END <= 4.2:
-                        log = await BET_BLOCKED(user_id)
                         if log == "BLOCKED":
                             try:
-                                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": time}}, upsert=True)
+                                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
                                 return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                             except Exception as e:
                                 raise Exception(e)
                     elif END >= 60*10:
                         await BET_BLOCKED(user_id, REMOVE=True)
+                    elif log == "BLOCKED":
+                        try:
+                            await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
+                            return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
+                        except Exception as e:
+                            raise Exception(e)
                     else:
                         return "NORMAL"
                 else:
