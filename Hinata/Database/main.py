@@ -383,7 +383,6 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     if END <= 4.2:
                         if log == "BLOCKED":
                             try:
-                                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
                                 return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                             except Exception as e:
                                 raise Exception(e)
@@ -391,7 +390,6 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                         await BET_BLOCKED(user_id, REMOVE=True)
                     elif log == "BLOCKED":
                         try:
-                            await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
                             return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                         except Exception as e:
                             raise Exception(e)
