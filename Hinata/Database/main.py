@@ -385,6 +385,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                             try:
                                 if minutes >= 10:
                                     await BET_BLOCKED(user_id, REMOVE=True)
+                                    await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"ntg"}})
                                     return "NORMAL"
                                 return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                             except Exception as e:
@@ -393,6 +394,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                         try:
                             if minutes >= 10:
                                 await BET_BLOCKED(user_id, REMOVE=True)
+                                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"ntg"}})
                                 return "NORMAL"
                             return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                         except Exception as e:
