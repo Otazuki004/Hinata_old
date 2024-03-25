@@ -379,11 +379,12 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     hours, remainder = divmod(uptime, 3600)
                     minutes, seconds = divmod(remainder, 60)
                     END = float(seconds)
+                    END2 = int(END)*60
                     log = await BET_BLOCKED(user_id)
                     if END <= 4.2:
                         if log == "BLOCKED":
                             try:
-                                if END >= 60*10:
+                                if END >= END2:
                                     await BET_BLOCKED(user_id, REMOVE=True)
                                     return "NORMAL"
                                 return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
@@ -391,7 +392,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                                 raise Exception(e)
                     elif log == "BLOCKED":
                         try:
-                            if END >= 60*10:
+                            if END >= END2:
                                 await BET_BLOCKED(user_id, REMOVE=True)
                                 return "NORMAL"
                             return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
