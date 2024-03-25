@@ -341,7 +341,8 @@ async def BET_BLOCKED(user_id: int, REMOVE=False):
         COUNT = user_data.get(f"{user_id}_BET_BLOCK")
         if COUNT >= 5:
             return "BLOCKED"
-        return "SUCCESS"
+        else:
+            return "SUCCESS"
     else:
         user_data = await db.find_one({"_id": 1})
         if user_data:
@@ -381,11 +382,15 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     if END <= 4.2:
                         log = await BET_BLOCKED(user_id)
                         if log == "BLOCKED":
-                            await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": time}}, upsert=True)
-                            return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
-                    if END > 60*10:
+                            try:
+                                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": time}}, upsert=True)
+                                return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
+                            except Exception as e:
+                                raise Exception(e)
+                    elif END >= 60*10:
                         await BET_BLOCKED(user_id, REMOVE=True)
-                    return "NORMAL"
+                    else:
+                        return "NORMAL"
                 else:
                     return "NORMAL"
     except Exception as e:
