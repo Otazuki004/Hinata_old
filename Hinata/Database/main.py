@@ -379,18 +379,18 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     hours, remainder = divmod(uptime, 3600)
                     minutes, seconds = divmod(remainder, 60)
                     END = float(seconds)
-                    log = await BET_BLOCKED(user_id)
                     if END <= 4.2:
+                        log = await BET_BLOCKED(user_id)
                         if log == "BLOCKED":
                             try:
                                 if minutes >= 10:
                                     await BET_BLOCKED(user_id, REMOVE=True)
-                                    await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
+                                    await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{datetime.now()}"}})
                                     return "NORMAL"
                                 return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
                             except Exception as e:
                                 raise Exception(e)
-                    elif log == "BLOCKED":
+                    elif await BET_BLOCKED(user_id) == "BLOCKED":
                         try:
                             if minutes >= 10:
                                 await BET_BLOCKED(user_id, REMOVE=True)
