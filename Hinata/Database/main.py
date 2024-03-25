@@ -376,6 +376,7 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                     TIME = datetime.strptime(TIME, "%Y-%m-%d %H:%M:%S.%f")
                     ping_time = (datetime.now() - TIME).total_seconds() * 1000
                     uptime = (datetime.now() - TIME).total_seconds()
+                    uptime -= 45
                     hours, remainder = divmod(uptime, 3600)
                     minutes, seconds = divmod(remainder, 60)
                     END = float(seconds)
