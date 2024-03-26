@@ -358,10 +358,10 @@ async def SPAM_CONTROL(user_id: int, GET=False):
     try:
         if GET == False:
             try:
-                await db.insert_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
+                await db.insert_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{str(datetime.now())}"}})
             except Exception as e:
                 print(e)
-                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{time}"}})
+                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{str(datetime.now())}"}})
             return "SUCCESS"
         else:
             if user_id == 0:
@@ -372,11 +372,11 @@ async def SPAM_CONTROL(user_id: int, GET=False):
                 if not user_data == None:
                     TIME = user_data.get(f"{user_id}_SPAM")
                     if TIME == None:
-                        TIME = str(datetime.now())
+                        TIME = TIME
                     TIME = datetime.strptime(TIME, "%Y-%m-%d %H:%M:%S.%f")
                     ping_time = (datetime.now() - TIME).total_seconds() * 1000
                     uptime = (datetime.now() - TIME).total_seconds()
-                    uptime -= 45
+                    uptime -= 60
                     hours, remainder = divmod(uptime, 3600)
                     minutes, seconds = divmod(remainder, 60)
                     END = float(seconds)
