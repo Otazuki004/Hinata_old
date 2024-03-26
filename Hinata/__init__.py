@@ -34,22 +34,22 @@ async def developer(_, client, update):
 MONGO_DB = MongoClient(MONGO_DB_URI) # Special Thanks To KoraXD For Giving This Codes!!
 GAME_DATABASE = AsyncIOMotorClient(MONGO_DB_URI)["HYPER_GAMES"]
 
-cmds = ["/bet", "/bet@SylvieArcadeBot"]
+cmds = ["/bet", "/bet@Hinata7Bot"]
 @bot.on_message(filters.text, group=1)
 async def fukkers(_, m: Message):
   spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
-  if not m.text.lower() in cmds:
+  if not m.text.lower().split()[0] in cmds:
     return 
   if not spammer:
-    await GAME_DATABASE.flood.insert_one({'user_id': m.from_user.id, 'flood': 1, 'mute': False})
+    await GAME_DATABASE.flood.insert_one({'user_id': m.from_user.id, 'flood': 1, 'time': time.time(), 'mute': False})
   else:
     if spammer['mute']:
-      if int(time.time() - spammer['time']) >= 120:
+      if int(time.time() - spammer['time']) >= 600:
         await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': False, 'flood': 0}})
-        await m.reply_text("`Your 2 Minutes Ignored Was Removed`")
+        await m.reply_text("`Your 10 Minutes Ignored Was Removed`")
     else:
       mf = spammer['flood'] + 1
-      if mf > 15:
+      if mf >= 5 and (time.time() - spammer['time']) >= 3:
         await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': True, 'flood': mf, 'time': time.time()}})
         await m.reply_text("`You've Been Ignored For 2 Minutes`")
       else:
