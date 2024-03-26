@@ -36,17 +36,17 @@ GAME_DATABASE = AsyncIOMotorClient(MONGO_DB_URI)["HYPER_GAMES"]
 
 cmds = ["/bet", "/bet@SylvieArcadeBot"]
 @bot.on_message(filters.text, group=1)
-async def fukkers(_, message):
-  spammer = await GAME_DATABASE.flood.find_one({'user_id': message.from_user.id})
-  if not message.text.lower() in cmds:
+async def fukkers(_, m: Message):
+  spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
+  if not m.text.lower() in cmds:
     return 
   if not spammer:
-    await GAME_DATABASE.flood.insert_one({'user_id': message.from_user.id, 'flood': 1, 'mute': False})
+    await GAME_DATABASE.flood.insert_one({'user_id': m.from_user.id, 'flood': 1, 'mute': False})
   else:
     if spammer['mute']:
       if int(time.time() - spammer['time']) >= 120:
         await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': False, 'flood': 0}})
-        await message.reply_text("`Your 2 Minutes Ignored Was Removed`")
+        await m.reply_text("`Your 2 Minutes Ignored Was Removed`")
     else:
       mf = spammer['flood'] + 1
       if mf > 15:
@@ -55,8 +55,8 @@ async def fukkers(_, message):
       else:
         await GAME_DATABASE.flood.update_one(spammer, {'$set': {'flood': mf}})
           
-async def is_spamed(_, message, __):
-  bitch = await GAME_DATABASE.flood.find_one({'user_id': message.from_user.id})
+async def is_spamed(_, __, m: Message):
+  bitch = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
   if bitch:
     if bitch['mute']:
       return False
