@@ -13,7 +13,8 @@ BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton("» 𝗛ʏᴘᴇʀ 𝗦ᴘ
 
 
 @bot.on_message(filters.text, group=1)
-async def fukkers(_, m: message):
+async def fukkers(_, m):
+  m = message
   spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
   if not m.from_user.id in await GET_AVAILABLE_USERS():
     return 
@@ -32,7 +33,8 @@ async def fukkers(_, m: message):
       else:
         await GAME_DATABASE.flood.update_one(spammer, {'$set': {'flood': mf}})
           
-async def is_spamed(_, client, m: update):
+async def is_spamed(_, client, update):
+  m = update
   bitch = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
   if bitch:
     if bitch['mute']:
