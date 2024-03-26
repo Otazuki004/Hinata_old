@@ -35,7 +35,7 @@ MONGO_DB = MongoClient(MONGO_DB_URI) # Special Thanks To KoraXD For Giving This 
 GAME_DATABASE = AsyncIOMotorClient(MONGO_DB_URI)["HYPER_GAMES"]
 
 cmds = ["/bet", "/bet@SylvieArcadeBot"]
-@bot.on_message(filters.txt, group=1)
+@bot.on_message(filters.text, group=1)
 async def fukkers(_, message):
   spammer = await GAME_DATABASE.flood.find_one({'user_id': message.from_user.id})
   if not message.text.lower() in cmds:
