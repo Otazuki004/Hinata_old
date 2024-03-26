@@ -59,7 +59,7 @@ async def choice_generator(user_one: int, user_one_lvl: int, user_two: int, user
         return user_one if random_choice < chance else user_two
 
 
-@bot.on_message(filters.command("profile", prefixes=HANDLER))
+@bot.on_message(filters.command("profile", prefixes=HANDLER) & floodfilter)
 async def get_profile(_, message):
     list_users = await GET_AVAILABLE_USERS()
     user_id = message.from_user.id
@@ -125,7 +125,7 @@ async def get_profile(_, message):
         await message.reply("You don't have a Hyper Games account, Create a Account by /start")
         return
         
-@bot.on_message(filters.command(["send", "sent", "transfer"], prefixes=HANDLER))
+@bot.on_message(filters.command(["send", "sent", "transfer"], prefixes=HANDLER) & floodfilter)
 async def send_coins(_, message):
     if len(message.command) < 2:
         return await message.reply_text("Please specify the amount of coins to send.")
@@ -195,7 +195,7 @@ async def set_profile_photo(_, message):
     else:
         return await message.reply("Please provide a valid image link starting with 'https://'.")
         
-@bot.on_message(filters.command(["setname", "setnewname"], prefixes=HANDLER))
+@bot.on_message(filters.command(["setname", "setnewname"], prefixes=HANDLER) & floodfilter)
 async def set_name(_, message):
     user_id = message.from_user.id
     TASK_COMPLETED = {}
@@ -223,7 +223,7 @@ async def set_name(_, message):
                 TASK_COMPLETED[user_id] = True
                 return 
 
-@bot.on_message(filters.command("fight", prefixes=HANDLER))
+@bot.on_message(filters.command("fight", prefixes=HANDLER) & floodfilter)
 async def fight(_, message):
     if message.reply_to_message:
         if message.reply_to_message.from_user.id == message.from_user.id:
