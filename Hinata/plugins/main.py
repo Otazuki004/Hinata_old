@@ -4,6 +4,7 @@ from pyrogram import filters
 import asyncio
 import os
 from Hinata.Database.main import *
+from Hinata import floodfilter
 from pyrogram import enums
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
@@ -152,7 +153,7 @@ async def send_coins(_, message):
     elif send_status.startswith("ERROR"):
         return await message.reply(send_status)
 
-@bot.on_message(filters.command("bet", prefixes=HANDLER))
+@bot.on_message(filters.command("bet", prefixes=HANDLER) & floodfilter)
 async def bet_coins(_, message):
     if len(message.command) < 2:
         return await message.reply_text("Please enter the amount of coins to bet.")
