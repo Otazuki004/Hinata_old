@@ -13,7 +13,7 @@ BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton("» 𝗛ʏᴘᴇʀ 𝗦ᴘ
 
 
 @bot.on_message(filters.text, group=1)
-async def fukkers(_, m: Message):
+async def fukkers(_, m: message):
   spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
   if not m.from_user.id in await GET_AVAILABLE_USERS():
     return 
