@@ -4,7 +4,6 @@ from pyrogram import filters
 import asyncio
 import os
 from Hinata.Database.main import *
-from Hinata import floodfilter
 from pyrogram import enums
 import random
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
