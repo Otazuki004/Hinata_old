@@ -55,7 +55,7 @@ async def fukkers(_, message):
       else:
         await GAME_DATABASE.flood.update_one(spammer, {'$set': {'flood': mf}})
           
-async def is_spamed(_, message):
+async def is_spamed(_, message, __):
   bitch = await GAME_DATABASE.flood.find_one({'user_id': message.from_user.id})
   if bitch:
     if bitch['mute']:
