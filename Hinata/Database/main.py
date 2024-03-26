@@ -334,86 +334,10 @@ async def GET_LEVEL(user_id: int):
         print(f"Error getting level for user {user_id}: {e}")
         return 0
 
-async def BET_BLOCKED(user_id: int, REMOVE=False):
-    if REMOVE == False:
-        await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": 1}}, upsert=True)
-        user_data = await db.find_one({"_id": 1})
-        COUNT = user_data.get(f"{user_id}_BET_BLOCK")
-        if COUNT >= 5:
-            return "BLOCKED"
-        else:
-            return "SUCCESS"
-    else:
-        user_data = await db.find_one({"_id": 1})
-        if user_data:
-            COUNT = user_data.get(f"{user_id}_BET_BLOCK")
-            if REMOVE == True:
-                COUNT = f"-{COUNT}"
-                COUNT = int(COUNT)
-                await db.update_one({"_id": 1}, {"$inc": {f"{user_id}_BET_BLOCK": COUNT}}, upsert=True)
-                return "SUCCESS"
-            
-async def SPAM_CONTROL(user_id: int, GET=False):
-    time = str(datetime.now())
-    try:
-        if GET == False:
-            try:
-                await db.insert_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{str(datetime.now())}"}})
-            except Exception as e:
-                print(e)
-                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{str(datetime.now())}"}})
-            return "SUCCESS"
-        else:
-            if user_id == 0:
-                raise Exception("You need enter user id to get their spam stats")
-                return USER_ID_NOT_FOUND
-            else:
-                user_data = await db.find_one({"_id": 1})
-                if not user_data == None:
-                    TIME = user_data.get(f"{user_id}_SPAM")
-                    if TIME == None:
-                        TIME = TIME
-                    TIME = datetime.strptime(TIME, "%Y-%m-%d %H:%M:%S.%f")
-                    ping_time = (datetime.now() - TIME).total_seconds() * 1000
-                    uptime = (datetime.now() - TIME).total_seconds()
-                    uptime -= 60
-                    hours, remainder = divmod(uptime, 3600)
-                    minutes, seconds = divmod(remainder, 60)
-                    END = float(seconds)
-                    if END <= 4.2:
-                        log = await BET_BLOCKED(user_id)
-                        if log == "BLOCKED":
-                            try:
-                                if minutes >= 10:
-                                    await BET_BLOCKED(user_id, REMOVE=True)
-                                    await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{str(datetime.now())}"}})
-                                    return "NORMAL"
-                                return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
-                            except Exception as e:
-                                raise Exception(e)
-                    elif await BET_BLOCKED(user_id) == "BLOCKED":
-                        try:
-                            if minutes >= 10:
-                                await BET_BLOCKED(user_id, REMOVE=True)
-                                await db.update_one({"_id": 1}, {"$set": {f"{user_id}_SPAM": f"{str(datetime.now())}"}})
-                                return "NORMAL"
-                            return f"BLOCKED_{int(minutes)}m {int(seconds)}s"
-                        except Exception as e:
-                            raise Exception(e)
-                    else:
-                        return "NORMAL"
-                else:
-                    return "NORMAL"
-    except Exception as e:
-        raise Exception(f"Something went wrong on SPAM_CONTROL: {e}")
-        return f"ERROR: {e}"
         
 async def BET_COINS(user_id: int, coins: int):
     USERS_ACC = await GET_AVAILABLE_USERS()
     LEVEL = await GET_LEVEL(user_id)
-    block_msg = await SPAM_CONTROL(user_id, GET=True)
-    if block_msg == None:
-        block_msg = "ntg"
     if user_id not in USERS_ACC:
         return "USER_NOT_FOUND"
     COINS_USR = await GET_COINS_FROM_USER(user_id)
@@ -421,8 +345,6 @@ async def BET_COINS(user_id: int, coins: int):
         return "NOT_ENOUGH_COINS"
     elif coins <= 0:
         return "NOT_POSTIVE_NUMBER"
-    elif block_msg.startswith("BLOCKED"):
-        return block_msg
     elif coins <= COINS_USR:
         try:
             if LEVEL < 1:
@@ -466,7 +388,6 @@ async def BET_COINS(user_id: int, coins: int):
                 coins_2x = coins*2
                 await ADD_COINS(user_id, coins_2x)
                 return "PRO"
-            await SPAM_CONTROL(user_id)
         except Exception as e:
             string = f"ERROR, {e}"
             return string
