@@ -34,29 +34,29 @@ async def developer(_, client, update):
 MONGO_DB = MongoClient(MONGO_DB_URI) # Special Thanks To KoraXD For Giving This Codes!!
 GAME_DATABASE = AsyncIOMotorClient(MONGO_DB_URI)["HYPER_GAMES"]
 
-cmds = ["/wager", "/wager@SylvieArcadeBot"]
+cmds = ["/bet", "/bet@SylvieArcadeBot"]
 @bot.on_message(filters.all, group=1)
 async def fukkers(_, m: Message):
-  spammer = await GAME_DATABASE.floodo.find_one({'user_id': m.from_user.id})
-  if not m.text in cmds:
+  spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
+  if not (m.text).lower() in cmds:
     return 
   if not spammer:
-    await GAME_DATABASE.floodo.insert_one({'user_id': m.from_user.id, 'flood': 1, 'mute': False})
+    await GAME_DATABASE.flood.insert_one({'user_id': m.from_user.id, 'flood': 1, 'mute': False})
   else:
     if spammer['mute']:
       if int(time.time() - spammer['time']) >= 120:
-        await GAME_DATABASE.floodo.update_one(spammer, {'$set': {'mute': False, 'flood': 0}})
+        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': False, 'flood': 0}})
         await m.reply_text("`Your 2 Minutes Ignored Was Removed`")
     else:
       mf = spammer['flood'] + 1
       if mf > 15:
-        await GAME_DATABASE.floodo.update_one(spammer, {'$set': {'mute': True, 'flood': mf, 'time': time.time()}})
+        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': True, 'flood': mf, 'time': time.time()}})
         await m.reply_text("`You've Been Ignored For 2 Minutes`")
       else:
-        await GAME_DATABASE.floodo.update_one(bitch, {'$set': {'flood': mf}})
+        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'flood': mf}})
           
 async def is_spamed(_, __, m: Message):
-  bitch = await GAME_DATABASE.floodo.find_one({'user_id': m.from_user.id})
+  bitch = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
   if bitch:
     if bitch['mute']:
       return False
