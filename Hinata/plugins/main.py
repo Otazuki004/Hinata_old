@@ -1,4 +1,4 @@
-from Hinata import HANDLER
+from Hinata import 
 from Hinata.__main__ import bot
 from pyrogram import filters
 import asyncio
@@ -11,38 +11,6 @@ from restart import restart_program
 
 BUTTONS = InlineKeyboardMarkup([[InlineKeyboardButton("» 𝗛ʏᴘᴇʀ 𝗦ᴘᴇᴇᴅ™", url="https://t.me/Hyper_Speed0")]])
 
-
-@bot.on_message(filters.text, group=1)
-async def fukkers(_, m):
-  m = message
-  spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
-  if not m.from_user.id in await GET_AVAILABLE_USERS():
-    return 
-  if not spammer:
-    await GAME_DATABASE.flood.insert_one({'user_id': m.from_user.id, 'flood': 1, 'time': time.time(), 'mute': False})
-  else:
-    if spammer['mute']:
-      if int(time.time() - spammer['time']) >= 600:
-        await GAME_DATABASE.flood.delete_one(spammer)
-        await m.reply_text("-_-")
-    else:
-      mf = spammer['flood'] + 1
-      if mf >= 5 and (time.time() - spammer['time']) >= 3:
-        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': True, 'flood': mf, 'time': time.time()}})
-        await m.reply_text("You are spaming so can't use the bot for 10mins")
-      else:
-        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'flood': mf}})
-          
-async def is_spamed(_, client, update):
-  m = update
-  bitch = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
-  if bitch:
-    if bitch['mute']:
-      return False
-  return True
-
-
-floodfilter = filters.create(is_spamed)
 
 async def choice_generator(user_one: int, user_one_lvl: int, user_two: int, user_two_lvl: int):
     if user_one_lvl > user_two_lvl:
