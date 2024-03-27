@@ -198,10 +198,7 @@ logging.basicConfig(
     level=logging.INFO,
 )
 
-get_commands = bot.get_bot_commands()
 
-if __name__ == "__main__":
-    try:
         bot.run() # STARTING CLIENT
     except Exception as e:
         if str(e).startswith("Telegram says: [420 FLOOD_WAIT_X]"):
