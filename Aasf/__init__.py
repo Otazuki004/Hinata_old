@@ -20,8 +20,6 @@ db = mongo_client.Hinata
 bot_username = "Hinata7Bot" # without @
 
 # spam module 
-cmds = ["bet"]
-prefixes = ["/", "?", "$", "!", "#", "@"]
 @bot.on_message(filters.text, group=1)
 async def autospam(_, m: Message):
   spammer = await db.flood.find_one({'user_id': m.from_user.id})
