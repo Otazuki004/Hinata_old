@@ -47,7 +47,7 @@ for x in get_commands:
 @bot.on_message(filters.text, group=1)
 async def spam_controler(_, m: Message):
   spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
-  msg = message.text.split()[0][1:])
+  msg = message.text.split()[0][1:]
   msg.lower()
   if msg not in commands:
     return
