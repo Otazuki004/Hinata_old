@@ -198,6 +198,8 @@ logging.basicConfig(
     level=logging.INFO,
 )
 
+get_commands = bot.get_bot_commands()
+
 if __name__ == "__main__":
     try:
         bot.run() # STARTING CLIENT
