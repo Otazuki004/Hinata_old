@@ -40,7 +40,8 @@ get_commands = await bot.get_bot_commands()
 commands = []
 
 for x in get_commands:
-    commands.append(x)
+    if not x == "start" or not x == "help":
+        commands.append(x)
 
 # SPAM CONTROLER
 @bot.on_message(filters.text, group=1)
