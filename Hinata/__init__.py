@@ -43,7 +43,7 @@ async def spam_controler(_, m: Message):
     if not x == "start" or not x == "help":
       commands.append(x)
   spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
-  msg = message.text.split()[0][1:]
+  msg = m.text.split()[0][1:]
   msg.lower()
   if msg not in commands:
     return
