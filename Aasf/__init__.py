@@ -10,14 +10,13 @@ from pyrogram.types import *
 
 app = Client(
     'Hinata',
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=TOKEN
+    api_id=api_id,
+    api_hash=api_hash,
+    bot_token=token
 )
 app.start()
-mongo_client = MongoClient(MONGO_DB_URL)
+mongo_client = MongoClient(mongo_db_url)
 db = mongo_client.Hinata
-bot_username = "Hinata7Bot" # without @
 
 # spam module 
 @bot.on_message(filters.text, group=1)
