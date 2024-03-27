@@ -35,7 +35,7 @@ MONGO_DB = MongoClient(MONGO_DB_URI) # Special Thanks To KoraXD For Giving This 
 GAME_DATABASE = AsyncIOMotorClient(MONGO_DB_URI)["HYPER_GAMES"]
 
 # LIST COMMANDS IN BOT
-get_commands = bot.get_bot_commands()
+from Hinata.__main__ import get_commands
 
 commands = []
 
