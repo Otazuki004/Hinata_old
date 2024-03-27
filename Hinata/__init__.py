@@ -33,3 +33,40 @@ async def developer(_, client, update):
 # DATABASE
 MONGO_DB = MongoClient(MONGO_DB_URI) # Special Thanks To KoraXD For Giving This Codes!!
 GAME_DATABASE = AsyncIOMotorClient(MONGO_DB_URI)["HYPER_GAMES"]
+
+# SPAM CONTROLER
+@bot.on_message(filters.text, group=1)
+async def spam_controler(_, m: Message):
+  get_commands = await bot.get_bot_commands()
+  commands = []
+  for x in get_commands:
+    if not x == "start" or not x == "help":
+      commands.append(x)
+  spammer = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
+  msg = message.text.split()[0][1:]
+  msg.lower()
+  if msg not in commands:
+    return
+  if not spammer:
+    await GAME_DATABASE.flood.insert_one({'user_id': m.from_user.id, 'flood': 1, 'time': time.time(), 'mute': False})
+  else:
+    if spammer['mute']:
+      if int(time.time() - spammer['time']) >= 600:
+        await GAME_DATABASE.flood.delete_one(spammer)
+        await m.reply_text("`Your 10 Minutes Ignored Was Removed`")
+    else:
+      spam_usr = spammer['flood'] + 1
+      if spam_usr >= 5 and (time.time() - spammer['time']) >= 3:
+        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': True, 'flood': mf, 'time': time.time()}})
+        await m.reply_text("`You've Been Ignored For 10 Minutes`")
+      else:
+        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'flood': mf}})
+          
+async def is_spamed(_, __, m: Message):
+  baka = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
+  if baka:
+    if baka['mute']:
+      return False
+  return True
+    
+floodfilter = filters.create(is_spamed)
