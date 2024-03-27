@@ -35,12 +35,8 @@ MONGO_DB = MongoClient(MONGO_DB_URI) # Special Thanks To KoraXD For Giving This 
 GAME_DATABASE = AsyncIOMotorClient(MONGO_DB_URI)["HYPER_GAMES"]
 
 # LIST COMMANDS IN BOT
-bot.start()
 get_commands = bot.get_bot_commands()
-bot.stop()
-
 commands = []
-
 for x in get_commands:
     if not x == "start" or not x == "help":
         commands.append(x)
@@ -76,3 +72,23 @@ async def is_spamed(_, __, m: Message):
   return True
     
 floodfilter = filters.create(is_spamed)
+
+
+# STARTING BOT
+
+if __name__ == "__init__":
+    try:
+        bot.run() # STARTING CLIENT
+    except Exception as e:
+        if str(e).startswith("Telegram says: [420 FLOOD_WAIT_X]"):
+            h = e
+            h = str(h)
+            h = h.split("Telegram says: [420 FLOOD_WAIT_X] - A wait of ")[1]
+            h = h.split(""" seconds is required (caused by "auth.ImportBotAuthorization")""")[0]
+            h = int(h)
+            raise Exception(f"Bot is in flood wait of {h} seconds, its required, bot automatically starts after {h} seconds")
+            time.sleep(h+2)
+            print("BOT STARTING AFTER FLOOD WAIT")
+            bot.run()
+        else:
+            print(e)
