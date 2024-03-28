@@ -55,12 +55,12 @@ async def spam_controler(_, m: Message):
         await GAME_DATABASE.flood.delete_one(spammer)
         await m.reply_text("`Your 10 Minutes Ignored Was Removed`")
     else:
-      spam_usr = spammer['flood'] + 1
-      if spam_usr >= 5 and (time.time() - spammer['time']) >= 3:
-        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': True, 'flood': mf, 'time': time.time()}})
+      usr_flood = spammer['flood'] + 1
+      if usr_flood >= 5 and (time.time() - spammer['time']) <= 3:
+        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'mute': True, 'flood': usr_flood, 'time': time.time()}})
         await m.reply_text("`You've Been Ignored For 10 Minutes`")
       else:
-        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'flood': mf}})
+        await GAME_DATABASE.flood.update_one(spammer, {'$set': {'flood': usr_flood}})
           
 async def is_spamed(_, __, m: Message):
   baka = await GAME_DATABASE.flood.find_one({'user_id': m.from_user.id})
