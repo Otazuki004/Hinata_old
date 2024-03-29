@@ -6,6 +6,7 @@ from datetime import datetime
 db = GAME_DATABASE["Games_RO"]
 AVAILABLE_BANKS = ['TB', 'FB', 'SBI', 'AXIS', 'CB']
 
+# GETTING LIST USERS
 async def GET_AVAILABLE_USERS():
     Find = await db.find_one({"_id": 1})
     if not Find:
@@ -13,7 +14,7 @@ async def GET_AVAILABLE_USERS():
     else:
         value = Find.get("USERS", [])
         return value
-
+# ADDED NEW USER 
 async def ADD_NEW_USER(user_id):
     if user_id in await GET_AVAILABLE_USERS():
         return "USER_ALREADY_EXITS"
@@ -21,6 +22,7 @@ async def ADD_NEW_USER(user_id):
     await db.insert_one(doc)
     await db.update_one({"_id": 1}, {"$addToSet": {"USERS": user_id}}, upsert=True)
 
+# GETTING COINS FROM THE USER
 async def GET_COINS_FROM_USER(user_id: int):
     document_id = f"user_{user_id}"
     try:
@@ -28,13 +30,12 @@ async def GET_COINS_FROM_USER(user_id: int):
         if user_data:
             return user_data.get("coins", 0)
         else:
-            return 0  # Handle case where user document is not found
+            return 0
     except Exception as e:
-        # Handle exceptions
-        print(f"Error getting coins for user {user_id}: {e}")
+        raise Exception(f"Error getting coins for user {user_id}: {e}")
         return 0
-
-async def ADD_COINS(user_id: int, coins: int):
+# UPDATE THE COINS FROM USER
+async def UPDATE_COINS(user_id: int, coins: int):
     if user_id not in await GET_AVAILABLE_USERS():
         return "USER_NOT_FOUND_CREATE_ACCOUNT_AND_TRY"
     document_id = f"user_{user_id}"
@@ -45,9 +46,9 @@ async def ADD_COINS(user_id: int, coins: int):
             upsert=True
         )
     except Exception as e:
-        # Handle exceptions
-        print(f"Error updating coins for user {user_id}: {e}")
+        raise Exception(f"Error updating coins for user {user_id}: {e}")
 
+# REMOVEING THE USER
 async def REMOVE_USER(user_id):
     if user_id not in await GET_AVAILABLE_USERS():
         return "USER_NOT_FOUND"
@@ -75,7 +76,7 @@ async def REMOVE_USER(user_id):
     except Exception as e:
         print("Its normal error i guess", e)
     
-    
+# SENDING COINS TO ANOTHER USER
 async def SEND_COINS(from_user: int, to_user: int, coins: int):
     USERS_ACC = await GET_AVAILABLE_USERS()
     if from_user not in USERS_ACC:
@@ -89,20 +90,21 @@ async def SEND_COINS(from_user: int, to_user: int, coins: int):
         return "NOT_POSTIVE_NUMBER"
     elif coins <= COINS_FR_USR:
         try:
-            await ADD_COINS(from_user, -coins)
-            await ADD_COINS(to_user, coins)
+            await UPDATE_COINS(from_user, -coins)
+            await UPDATE_COINS(to_user, coins)
             return "SUCCESS"
         except Exception as e:
             ERROR_RETURN_STR = f"ERROR, {e}"
             return ERROR_RETURN_STR
 
+# SETTING PROFILE PIC TO USER
 async def SET_PROFILE_PIC(user_id: int, image: str):
     USERS_ACC = await GET_AVAILABLE_USERS()
     if user_id not in USERS_ACC:
         return "USER_NOT_FOUND"
     COINS_USR = await GET_COINS_FROM_USER(user_id)
     if COINS_USR >= 1000:
-        await ADD_COINS(user_id, -1000)
+        await UPDATE_COINS(user_id, -1000)
         doc = {"_id": 888 + user_id, "IMAGE": image}
         try:
             await db.insert_one(doc)
@@ -112,6 +114,7 @@ async def SET_PROFILE_PIC(user_id: int, image: str):
     else:
         return "NOT_ENOUGH_COINS"
 
+# GETTING PROFILE PIC TO USER
 async def GET_PROFILE_PIC(user_id: int):
     Find = await db.find_one({"_id": 888 + user_id})
     if not Find:
@@ -120,13 +123,14 @@ async def GET_PROFILE_PIC(user_id: int):
         value = Find["IMAGE"]
         return value
 
+# SETING USER'S NAME
 async def SET_USER_NAME(user_id: int, name: str):
     USERS_ACC = await GET_AVAILABLE_USERS()
     if user_id not in USERS_ACC:
         return "USER_NOT_FOUND"
     COINS_USR = await GET_COINS_FROM_USER(user_id)
     if COINS_USR >= 1999:
-        await ADD_COINS(user_id, -1999)
+        await UPDATE_COINS(user_id, -1999)
         doc = {"_id": 4444 + user_id, "NAME": name}
         try:
             await db.insert_one(doc)
@@ -136,7 +140,7 @@ async def SET_USER_NAME(user_id: int, name: str):
     else:
         return "NOT_ENOUGH_COINS"
 
-
+# GETTING USER'S NAME
 async def GET_USER_NAME(user_id: int):
     Find = await db.find_one({"_id": 4444 + user_id})
     if not Find:
@@ -145,6 +149,7 @@ async def GET_USER_NAME(user_id: int):
         value = Find["NAME"]
         return value
 
+# ADDING LEVEL
 async def ADD_LEVEL(user_id: int, level: int):
     document_id = f"user_{user_id}"
     try:
@@ -154,8 +159,9 @@ async def ADD_LEVEL(user_id: int, level: int):
             upsert=True
         )
     except Exception as e:
-        print(f"Error adding level for user {user_id}: {e}")
+        raise Exception(f"Error adding level for user {user_id}: {e}")
 
+# GETTING BANK SCORE 
 async def GET_BANK_SCORE(user_id: int):
     USRS = await GET_AVAILABLE_USERS()
     if user_id not in USRS:
@@ -174,6 +180,7 @@ async def GET_BANK_SCORE(user_id: int):
     except Exception as e:
         return print(f"Error getting bank score for user {user_id}: {e}")
 
+# ADD BANK SCORE
 async def ADD_BANK_SCORE(user_id: int, score: int):
     USRS = await GET_AVAILABLE_USERS()
     if user_id not in USRS:
@@ -190,6 +197,7 @@ async def ADD_BANK_SCORE(user_id: int, score: int):
     except Exception as e:
         return print(f"Error updating bank score for user {user_id}: {e}")
 
+# GET USER BANK ACCOUNTS
 async def GET_USER_BANK_ACCOUNTS(user_id: int, get_as_count=False):
     if get_as_count == False:
         Find = await db.find_one({"_id": 80556+user_id})
@@ -205,7 +213,8 @@ async def GET_USER_BANK_ACCOUNTS(user_id: int, get_as_count=False):
         else:
             value = Find.get("NUM_BANKS", 0)
             return value
-        
+
+# CREATE NEW BANK ACCOUNT 
 async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
     USRS = await GET_AVAILABLE_USERS()
     if user_id not in USRS:
@@ -221,12 +230,13 @@ async def CREATE_USER_BANK_ACCOUNT(user_id, bank):
     try:
         await db.update_one({"_id": 80556+user_id}, {"$addToSet": {"BANKS": bank}}, upsert=True)
         await db.update_one({"_id": 80556+user_id}, {"$inc": {"NUM_BANKS": 1}}, upsert=True)
-        await ADD_COINS(user_id, -2000)
+        await UPDATE_COINS(user_id, -2000)
         return "SUCCESS"
     except Exception as e:
         print(f"Error adding new bank account to user {user_id}, {e}")
         return f"**Error:** {e}"
 
+# GET COINS FROM BANK
 async def GET_USER_COINS_FROM_BANK(user_id: int, bank=None, total_coins=False):
     if total_coins == False:
         if bank == None:
@@ -244,7 +254,8 @@ async def GET_USER_COINS_FROM_BANK(user_id: int, bank=None, total_coins=False):
         else:
             value = Find.get("TOTAL_COINS", 0)
             return value
-    
+
+# DEPOSIT COINS
 async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
     if user_id not in await GET_AVAILABLE_USERS():
         return "USER_NOT_FOUND"
@@ -257,7 +268,7 @@ async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
     try:
         coin_minus = f"-{coins}"
         coin_minus = int(coin_minus)
-        await ADD_COINS(user_id, coin_minus)
+        await UPDATE_COINS(user_id, coin_minus)
         await db.update_one({"_id": 97280+user_id}, {"$inc": {f"{bank}": coins}}, upsert=True)
         await db.update_one({"_id": 97789+user_id}, {"$inc": {f"TOTAL_COINS": coins}}, upsert=True)
         return "SUCCESS"
@@ -265,6 +276,7 @@ async def DEPOSIT_COINS(user_id: int, coins: int, bank: str):
         print(f"Error while depositing coins to user {user_id}: {e}")
         return f"ERROR, {e}"
 
+# WITHDRA COINS 
 async def WITHDRAW_COINS_FROM_BANK(user_id: int, coins: int, bank: int):
     if user_id not in await GET_AVAILABLE_USERS():
         return "USER_NOT_FOUND"
