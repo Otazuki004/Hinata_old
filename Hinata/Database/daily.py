@@ -1,7 +1,7 @@
 from Hinata import GAME_DATABASE
 from datetime import datetime, timedelta
 
-db = GAME_DATABASE["Games_RO"]
+db = GAME_DATABASE["DAILY"]
 
 async def check_claimed_user(user_id):
     user_data = await db.find_one({"user_id": user_id})
